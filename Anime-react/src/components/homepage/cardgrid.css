@@ -1,0 +1,21 @@
+.card-grid{
+    
+    width: 100vw;
+    padding: 40px;
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.topRatedAnime{
+    margin-top: 50px;
+    margin-bottom: 30px;
+    color: white;
+    font-family: 'Zen Dots', 'Poppins', sans-serif;
+    font-size: xx-large;
+    
+}
+.titleContainer{
+    display: flex;
+    justify-content: center;
+}

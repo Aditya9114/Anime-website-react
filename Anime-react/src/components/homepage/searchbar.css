@@ -1,0 +1,14 @@
+.search-wrapper {
+  width: 100vw;                /* full viewport */
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.search-wrapper input {
+  width: min(600px, 90%);
+  padding: 15px;
+  border-radius: 6px;
+  border: none;
+  font-size: large;
+}

@@ -1,0 +1,12 @@
+.mediaContainer{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.mediaContainer iframe{
+    width: 90%;
+    height: 80vh;
+    border-radius: 10px;
+}

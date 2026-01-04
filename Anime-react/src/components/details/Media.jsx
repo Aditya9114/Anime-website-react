@@ -5,7 +5,6 @@ import "./media.css";
 const YT_KEY = import.meta.env.VITE_YT_API_KEY;
 
 export function Media({ anime }) {
-  
   const [trailerUrl, setTrailerUrl] = useState(null);
 
   useEffect(() => {
@@ -13,7 +12,14 @@ export function Media({ anime }) {
 
     async function fetchTrailer() {
       try {
-        const query = `${anime.title_english || anime.title} anime official English trailer`;
+        // ✅ 1. Try Jikan trailer FIRST
+        if (anime.trailer?.embed_url) {
+          setTrailerUrl(anime.trailer.embed_url);
+          return;
+        }
+
+        // 🔁 2. Fallback to YouTube only if Jikan doesn't have it
+        const query = `${anime.title_english || anime.title} anime official trailer`;
 
         const res = await axios.get(
           "https://www.googleapis.com/youtube/v3/search",
@@ -31,33 +37,16 @@ export function Media({ anime }) {
         const ytVideoId = res.data.items[0]?.id?.videoId;
 
         if (ytVideoId) {
-          // ✅ English trailer
           setTrailerUrl(`https://www.youtube.com/embed/${ytVideoId}`);
-          
           return;
         }
 
-        // 🟡 Fallback to Japanese trailer from Jikan
-        if (anime.trailer?.embed_url) {
-          setTrailerUrl(anime.trailer.embed_url);
-          
-          return;
-        }
-
-        // ❌ Nothing available
+        // ❌ Nothing found
         setTrailerUrl(null);
-        
-      } catch (err) {
-        console.error("YouTube fetch failed", err);
 
-        // Even if YouTube fails, try Jikan trailer
-        if (anime.trailer?.embed_url) {
-          setTrailerUrl(anime.trailer.embed_url);
-          
-        } else {
-          setTrailerUrl(null);
-          
-        }
+      } catch (err) {
+        console.error("Trailer fetch failed", err);
+        setTrailerUrl(null);
       }
     }
 
@@ -71,20 +60,17 @@ export function Media({ anime }) {
   return (
     <div className="mediaContainer">
       {trailerUrl ? (
-        <>
-          <iframe
-            src={trailerUrl}
-            title={anime.title}
-            allow="encrypted-media"
-            allowFullScreen
-          />
-        </>
+        <iframe
+          src={trailerUrl}
+          title={anime.title}
+          allow="encrypted-media"
+          allowFullScreen
+        />
       ) : (
         <p style={{ color: "white" }}>
           Trailer not available 😕
         </p>
       )}
-      
     </div>
   );
 }

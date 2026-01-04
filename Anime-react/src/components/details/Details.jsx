@@ -2,6 +2,8 @@ import { AnimeInfo } from "./AnimeInfo";
 import { Media } from "./Media";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Characters } from "./Characters";
+import { CharacterCard } from "./CharacterCard";
 
 export function Details({ topAnime }) {
   const { id } = useParams();
@@ -22,6 +24,7 @@ export function Details({ topAnime }) {
     <>
       <Media anime={anime}></Media>
       <AnimeInfo anime={anime}></AnimeInfo>
+      <CharacterCard id={id}></CharacterCard>
     </>
   );
 }

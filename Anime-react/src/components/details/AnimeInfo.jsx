@@ -27,6 +27,7 @@ export function AnimeInfo({ anime }) {
           </div>
         </div>
       </div>
+      
     </>
   );
 }

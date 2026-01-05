@@ -1,56 +1,130 @@
-*{
-    color: white;
-    font-family: 'Poppins', sans-serif;
+/* General Reset for this component */
+* {
+  box-sizing: border-box;
 }
-.infoContainer{
-    display: flex;
-    gap: 40px;
-    margin-top: 10px;
-    padding-left: 80px;
-    padding-right: 80px;
+
+/* The Main Card Container */
+.anime-card-container {
+  display: flex;
+  gap: 32px; /* Space between image and text */
+  background-color: #1a1a1a; /* Dark background for the WHOLE card */
+  padding: 32px;
+  border-radius: 16px; /* Modern rounded corners */
+  margin: 40px auto; /* Center the card on page */
+  max-width: 1000px; /* Stop it from getting too wide on big screens */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Deep shadow for depth */
+  align-items: flex-start; /* Aligns image to top of text */
 }
-.infoContainer img{
-    width: auto;
-    height: 340px;
-    border-radius: 10px;
+
+/* Poster Image */
+.poster-image {
+  width: 240px; /* Fixed width prevents layout shifts */
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  display: block;
 }
-.titleContainer h1{
-    font-size: 36px;
-    margin-bottom: 10px;
+
+/* Right Side Content Wrapper */
+.anime-content {
+  flex: 1; /* Takes up remaining space */
+  display: flex;
+  flex-direction: column;
 }
-.titleContainer{
-    display: flex;
-    justify-content: center;
-    margin-top: 40px;
+
+/* Typography: Title */
+.anime-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5rem; /* Big and Bold */
+  margin: 0 0 12px 0;
+  color: #ffffff;
+  line-height: 1.2;
 }
-#star{
-    height: 20px;
-    width: auto;
+
+/* Rating Row */
+.rating-row {
+  margin-bottom: 20px;
 }
-.rating{
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-bottom: 10px;
+
+.score-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1); /* Subtle background */
+  padding: 6px 12px;
+  border-radius: 8px;
 }
-.rating p{
-    margin: 10px;
+
+.star-icon {
+  width: 18px;
+  height: 18px;
 }
-.tags{
-    display: flex;
-    gap: 20px;
-    
+
+.score-val {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffc107; /* Gold color for the score */
 }
-.tags p{
-    padding: 10px 10px;
-    background: #1f6f78;   /* muted teal */
+
+.score-max {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+/* Synopsis Text (Crucial Fixes) */
+.synopsis {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  line-height: 1.7; /* Much better readability */
+  color: #cccccc; /* Light grey is easier to read on dark than pure white */
+  margin-bottom: 24px;
+  max-width: 95%;
+}
+
+/* Tags / Genres */
+.tags-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows tags to wrap to next line */
+  gap: 10px;
+}
+
+.tag-pill {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  background-color: #1f6f78; /* Your requested teal */
   color: #e6f7f8;
-    border-radius: 10px;
-    font-size: 14px;
+  padding: 6px 14px;
+  border-radius: 20px; /* Fully rounded pill shape */
+  font-weight: 500;
+  transition: background 0.2s;
+  cursor: default;
 }
-.syn{
-    background-color: rgb(39, 38, 38);
-    padding: 15px;
-    padding-bottom: 0px;
-    border-radius: 8px;
+
+.tag-pill:hover {
+  background-color: #2a8a96; /* Slightly lighter on hover */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .anime-card-container {
+    flex-direction: column; /* Stack image on top of text */
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .poster-image {
+    width: 200px; /* Smaller image on mobile */
+  }
+
+  .anime-title {
+    text-align: center;
+    font-size: 1.8rem;
+  }
+  
+  .rating-row {
+    justify-content: center;
+    display: flex;
+  }
 }

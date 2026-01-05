@@ -24,7 +24,7 @@ export function Details({ topAnime }) {
     <>
       <Media anime={anime}></Media>
       <AnimeInfo anime={anime}></AnimeInfo>
-      <CharacterCard id={id}></CharacterCard>
+      <Characters id={id}></Characters>
     </>
   );
 }

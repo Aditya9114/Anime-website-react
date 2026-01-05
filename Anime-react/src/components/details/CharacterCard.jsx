@@ -1,63 +1,68 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
 import "./charactercard.css";
-export function CharacterCard({ id }) {
-  const [characters, setCharacters] = useState([]);
 
-  useEffect(() => {
-    if (!id) return;
-
-    axios
-      .get(`https://api.jikan.moe/v4/anime/${id}/characters`)
-      .then((res) => {
-        setCharacters(res.data.data);
-      })
-      .catch(console.error);
-  }, [id]);
-
-  useEffect(() => {
-    console.log(characters);
-  }, [characters]);
-
-  if (!characters.length) {
-    return <p style={{ color: "white" }}>Loading characters…</p>;
-  }
+export function CharacterCard({
+  src,
+  name,
+  role,
+  jpVa,
+  enVa,
+  frVa,
+  geVa,
+  itVa,
+  manVa,
+  spVa,
+}) {
+  // Helper to dim "Unknown" text automatically
+  const getClass = (text) => (text === "Unknown" ? "value unknown" : "value");
 
   return (
     <div className="charBody">
-      {characters[0]?.character?.images?.jpg?.image_url && (
-        <img
-          src={characters[0].character.images.jpg.image_url}
-          alt={characters[0].character.name}
-        />
-      )}
-      {characters[0]?.character?.name && <p>{characters[0].character.name}</p>}
-      {characters[0]?.role && <p>{characters[0].role}</p>}
-      {characters?.[0]?.voice_actors?.find((va) => va.language === "Japanese")
-        ?.person?.name && (
-        <div>
-          <p>Japanese Voice Actor</p>
-          <p>
-            {
-              characters[0].voice_actors.find(
-                (va) => va.language === "Japanese"
-              ).person.name
-            }
-          </p>
+      <img src={src} alt={name} className="charImage" />
+      
+      {/* Primary Info Group (Name & Role) */}
+      <div className="primary-info">
+        <div className="info-block name-block">
+          <p className="label">Name</p>
+          <p className="value name-text">{name}</p>
         </div>
-      )}
-      {characters?.[0]?.voice_actors?.find((va) => va.language === "English")
-        ?.person?.name && (
-        <div>
-          <p>English Voice Actor</p>
-          <p>
-            {
-              characters[0].voice_actors.find((va) => va.language === "English")
-                .person.name
-            }
-          </p>
+
+        <div className="info-block role-block">
+          <p className="label">Role</p>
+          <span className={`role-badge ${role.toLowerCase()}`}>{role}</span>
         </div>
-      )}
+      </div>
+
+      {/* Voice Actors Grid */}
+      <div className="va-grid">
+        <div className="info-block">
+          <p className="label">Japanese</p>
+          <p className={getClass(jpVa)}>{jpVa}</p>
+        </div>
+        <div className="info-block">
+          <p className="label">English</p>
+          <p className={getClass(enVa)}>{enVa}</p>
+        </div>
+        <div className="info-block">
+          <p className="label">Spanish</p>
+          <p className={getClass(spVa)}>{spVa}</p>
+        </div>
+        <div className="info-block">
+          <p className="label">French</p>
+          <p className={getClass(frVa)}>{frVa}</p>
+        </div>
+        <div className="info-block">
+          <p className="label">Italian</p>
+          <p className={getClass(itVa)}>{itVa}</p>
+        </div>
+        <div className="info-block">
+          <p className="label">Mandarin</p>
+          <p className={getClass(manVa)}>{manVa}</p>
+        </div>
+        <div className="info-block">
+          <p className="label">German</p>
+          <p className={getClass(geVa)}>{geVa}</p>
+        </div>
+      </div>
     </div>
   );
 }

@@ -5,16 +5,28 @@ import { useState, useEffect } from "react";
 import { Characters } from "./Characters";
 import { CharacterCard } from "./CharacterCard";
 
-export function Details({ topAnime }) {
+export function Details({ topAnime, airingAnime }) {
   const { id } = useParams();
   const [anime, setAnime] = useState(null);
   useEffect(() => {
-    if (!topAnime.length) return;
+  if (!topAnime.length && !airingAnime.length) return;
 
-    const found = topAnime.find((a) => a.mal_id === Number(id));
+  const animeId = Number(id);
 
-    setAnime(found || null);
-  }, [topAnime, id]);
+  const foundInTop =
+    topAnime.find((a) => a.mal_id === animeId);
+
+  if (foundInTop) {
+    setAnime(foundInTop);
+    return;
+  }
+
+  const foundInAiring =
+    airingAnime.find((a) => a.mal_id === animeId);
+
+  setAnime(foundInAiring || null);
+}, [topAnime, airingAnime, id]);
+
 
   useEffect(() => {
     console.log(anime);

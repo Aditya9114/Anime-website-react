@@ -1,15 +1,17 @@
-import { Header } from './Header.jsx';
-import {SearchBar} from './SearchBar.jsx';
-import {CardGrid} from './CardGrid.jsx';
+import { TopAiringGrid } from "./TopAiringGrid";
+import { TopRatedAnime } from "./TopRatedAnime";
+import { Header } from "./Header.jsx";
+import { SearchBar } from "./SearchBar.jsx";
 
-export function HomePage({ topAnime }) {
+export function HomePage({anime, topAnime}) {
   return (
     <>
       <Header />
       <section className="search-section">
         <SearchBar />
       </section>
-      <CardGrid anime={topAnime} />
+      <TopAiringGrid anime={anime} />
+      <TopRatedAnime topAnime={topAnime}/>
     </>
   );
 }

@@ -12,7 +12,7 @@
   padding: 16px;
   margin-top: 20px;
   gap: 24px;                 /* Spacing between image, info, and VAs */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
@@ -86,6 +86,8 @@ p {
   text-transform: uppercase;
   background-color: #333;
   color: #ccc;
+  width: 100px;
+  text-align: center;
 }
 
 /* Optional: Color code specific roles if you want */

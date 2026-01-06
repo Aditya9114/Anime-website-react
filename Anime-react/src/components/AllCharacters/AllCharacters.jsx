@@ -1,12 +1,12 @@
-import axios from "axios";
+import { CharacterCard } from "../details/CharacterCard";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { CharacterCard } from "./CharacterCard";
-import { useNavigate } from "react-router-dom";
-import "./characters.css";
+import axios from "axios";
 
-export function Characters({ id }) {
+export function AllCharacters() {
+  const { id } = useParams();
+
   const [characters, setCharacters] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!id) return;
@@ -19,7 +19,6 @@ export function Characters({ id }) {
   useEffect(() => {
     console.log(characters);
   }, [characters]);
-
   return (
     <>
       <div className="heading">
@@ -27,7 +26,7 @@ export function Characters({ id }) {
       </div>
 
       <div className="charGird">
-        {characters.slice(0, 5).map((chars) => (
+        {characters.map((chars) => (
           <CharacterCard
             key={chars.character.mal_id}
             src={chars?.character?.images?.jpg?.image_url}
@@ -43,9 +42,6 @@ export function Characters({ id }) {
           />
         ))}
       </div>
-      <button id="btn1"
-        onClick={()=>navigate(`/All-Characters/${id}`)}
-      >Load More Characters</button>
     </>
   );
 }

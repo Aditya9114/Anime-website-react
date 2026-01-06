@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Characters } from "./Characters";
 import { CharacterCard } from "./CharacterCard";
+import './details.css';
 
 export function Details({ topAnime, airingAnime }) {
   const { id } = useParams();

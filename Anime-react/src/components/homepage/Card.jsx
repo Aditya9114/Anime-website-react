@@ -19,7 +19,7 @@ export function Card({ Name, tag1, tag2, tag3, src, info, id }) {
         {tag3 && <p>{tag3}</p>}
       </div>
 
-      <button onClick={() => navigate(`/details/${id}`)}>
+      <button id="card-btn" onClick={() => navigate(`/details/${id}`)}>
         View Details
       </button>
     </div>

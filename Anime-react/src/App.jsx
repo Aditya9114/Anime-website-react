@@ -7,6 +7,7 @@ import { Media } from "./components/details/Media";
 import { TopRatedAnime } from "./components/homepage/TopRatedAnime";
 import { TopAiringGrid } from "./components/homepage/TopAiringGrid";
 import { HomePage } from "./components/homepage/HomePage";
+import { AllCharacters } from "./components/AllCharacters/AllCharacters";
 
 function App() {
   const [anime, setAnime] = useState([]);
@@ -46,6 +47,7 @@ function App() {
         topAnime={topAnime}
       ></HomePage>} />
       <Route path="/details/:id" element={<Details topAnime={topAnime} airingAnime={anime}/>} />
+      <Route path="/All-Characters/:id" element={<AllCharacters />}></Route>
     </Routes>
   );
 }

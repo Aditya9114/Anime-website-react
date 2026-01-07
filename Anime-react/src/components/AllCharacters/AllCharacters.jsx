@@ -2,6 +2,7 @@ import { CharacterCard } from "../details/CharacterCard";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import './allcharacters.css'
 
 export function AllCharacters() {
   const { id } = useParams();
@@ -21,6 +22,8 @@ export function AllCharacters() {
   }, [characters]);
   return (
     <>
+    {characters.length > 0 ? (
+        <> 
       <div className="heading">
         <h1>Characters</h1>
       </div>
@@ -42,6 +45,9 @@ export function AllCharacters() {
           />
         ))}
       </div>
+      </>) : (
+        <p id="buffer">Loading Characters...</p>
+      ) }
     </>
   );
 }

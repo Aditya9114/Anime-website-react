@@ -1,0 +1,67 @@
+/* 1. Main Header Section */
+.stuido-header {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #333; /* Subtle divider line */
+}
+
+.stuido-header h1 {
+  font-size: 28px;
+  color: #ffffff;
+  margin: 0;
+}
+
+/* 2. Main Wrapper */
+.studio-div {
+  padding: 10px 0;
+}
+
+/* 3. Sub-headers (Studios / Producers) */
+/* Targeted specifically to look like section labels */
+.studio-div > h1, 
+.producers h1 {
+  font-size: 18px;
+  color: #a0a0a0; /* Light grey to distinguish from main title */
+  margin-bottom: 12px;
+  margin-top: 0;
+  width: 100%; /* Forces the header to take full row inside flex container */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* 4. List Containers */
+.studio,
+.producers {
+  display: flex;
+  flex-wrap: wrap; /* Allows tags to flow to next line */
+  gap: 10px;       /* Space between tags */
+  margin-bottom: 30px; /* Space between the two sections */
+}
+
+/* 5. The Tags (Pills) Style */
+.studio p,
+.producers p {
+  background-color: #252525;
+  color: #e0e0e0;
+  padding: 8px 16px;
+  border-radius: 20px;
+  margin: 0;
+  font-size: 14px;
+  border: 1px solid #333;
+  transition: all 0.2s ease;
+  cursor: default;
+}
+
+/* 6. Hover Effects */
+.studio p:hover,
+.producers p:hover {
+  border-color: #ffca28; /* Gold accent */
+  color: #ffffff;
+  background-color: #2d2d2d;
+  transform: translateY(-2px);
+}
+.studio-body{
+    padding: 16px;
+}

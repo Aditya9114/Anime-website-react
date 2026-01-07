@@ -26,7 +26,7 @@ export function Characters({ id }) {
         <h1>Characters</h1>
       </div>
 
-      <div className="charGird">
+      <div className="charGird" id="characters">
         {characters.slice(0, 5).map((chars) => (
           <CharacterCard
             key={chars.character.mal_id}
@@ -43,9 +43,11 @@ export function Characters({ id }) {
           />
         ))}
       </div>
-      <button id="btn1"
-        onClick={()=>navigate(`/All-Characters/${id}`)}
-      >Load More Characters</button>
+      <div id="btn1">
+        <button onClick={() => navigate(`/All-Characters/${id}`)}>
+          Load More Characters
+        </button>
+      </div>
     </>
   );
 }

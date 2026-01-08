@@ -9,7 +9,7 @@ export function AnimeInfo({ anime }) {
       {/* Left Side: Poster Image */}
       <div className="poster-wrapper">
         <img 
-          src={anime.images?.jpg?.image_url} 
+          src={anime.images?.jpg?.large_image_url} 
           alt={anime.title} 
           className="poster-image" 
         />

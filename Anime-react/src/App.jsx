@@ -46,7 +46,7 @@ function App() {
         anime={anime} 
         topAnime={topAnime}
       ></HomePage>} />
-      <Route path="/details/:id" element={<Details topAnime={topAnime} airingAnime={anime}/>} />
+      <Route path="/details/:id" element={<Details/>} />
       <Route path="/All-Characters/:id" element={<AllCharacters />}></Route>
     </Routes>
   );

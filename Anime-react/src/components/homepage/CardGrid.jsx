@@ -29,7 +29,7 @@ export function CardGrid({ anime }) {
               tag1={topAnime.genres[0]?.name || ""}
               tag2={topAnime.genres[1]?.name || ""}
               tag3={topAnime.genres[2]?.name || ""}
-              src={topAnime.images.jpg.image_url}
+              src={topAnime.images.jpg.large_image_url}
               info={info}
               id = {topAnime.mal_id}
             />

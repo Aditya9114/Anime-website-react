@@ -1,13 +1,20 @@
-import './detailsheader.css';
+import "./detailsheader.css";
+
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth" });
+  }
+}
 
 export function DetailsHeader() {
   return (
-    <header >
+    <header>
       <nav className="details-nav-bar">
-        <a href="#characters">Characters</a>
-        <a href="#studio">Studio</a>
-        <a href="#studio">Recommendations</a>
-        <a href="#reviews">Reviews</a>
+        <button onClick={() => scrollTo("characters")}>Characters</button>
+        <button onClick={() => scrollTo("studio")}>Studio</button>
+        <button onClick={() => scrollTo("recommendations")}>Recommendations</button>
+        <button onClick={() => scrollTo("reviews")}>Reviews</button>
       </nav>
     </header>
   );

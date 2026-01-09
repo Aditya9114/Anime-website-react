@@ -31,7 +31,7 @@ export function Recommendations({ id }) {
   return (
     <>
       <div className="rec-heading">
-        <h1 id="recommendation">Recommendations</h1>
+        <h1 id="recommendations">Recommendations</h1>
       </div>
       <div className="outer-card-body">
         {recommendations.slice(0, 10).map((rec) => (

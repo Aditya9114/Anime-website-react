@@ -20,6 +20,7 @@ export function Media({ anime }) {
 
         // 🔁 2. Fallback to YouTube only if Jikan doesn't have it
         const query = `${anime.title_english || anime.title} anime official trailer`;
+        await new Promise(r => setTimeout(r, 400));
 
         const res = await axios.get(
           "https://www.googleapis.com/youtube/v3/search",

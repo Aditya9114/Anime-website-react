@@ -10,10 +10,15 @@ export function Characters({ id }) {
 
   useEffect(() => {
     if (!id) return;
-    axios
+    async function getchar(){
+      await new Promise(r => setTimeout(r, 800));
+
+      axios
       .get(`https://api.jikan.moe/v4/anime/${id}/characters`)
       .then((res) => setCharacters(res.data.data))
       .catch(console.error);
+    }
+    getchar();
   }, [id]);
 
   useEffect(() => {

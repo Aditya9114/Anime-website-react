@@ -8,8 +8,9 @@ export function Recommendations({ id }) {
 
   useEffect(() => {
     if (!id) return;
-
-    axios
+    async function getrRecommendations(){
+      await new Promise(r => setTimeout(r, 1200));
+      axios
       .get(`https://api.jikan.moe/v4/anime/${id}/recommendations`)
       .then((res) => {
         setRecommendations(res.data.data);
@@ -17,6 +18,8 @@ export function Recommendations({ id }) {
       .catch((err) => {
         console.error(err);
       });
+    }
+    getrRecommendations();
   }, [id]);
 
   useEffect(() => {

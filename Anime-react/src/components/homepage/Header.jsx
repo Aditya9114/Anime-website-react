@@ -6,7 +6,7 @@ export function Header() {
 
   useEffect(() => {
     const randomNum = Math.floor(Math.random() * 6) + 1;
-    setBg(`/images/bg${randomNum}.jpg`);
+    setBg(`${import.meta.env.BASE_URL}images/bg${randomNum}.jpg`);
   }, []);
 
   return (

@@ -1,21 +1,41 @@
-.card-grid{
-    
+.card-grid {
+  width: 100vw;
+  padding: 40px;
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.topRatedAnime {
+  margin-top: 50px;
+  margin-bottom: 30px;
+  color: white;
+  font-family: "Zen Dots", "Poppins", sans-serif;
+  font-size: xx-large;
+}
+.titleContainer {
+  display: flex;
+  justify-content: center;
+}
+@media (max-width: 768px) {
+  /* styles for phones & small tablets */
+  .card-grid {
     width: 100vw;
-    padding: 40px;
+    padding: 10px;
     display: flex;
-    gap: 25px;
+    gap: 10px;
     flex-wrap: wrap;
     justify-content: space-around;
-}
-.topRatedAnime{
+  }
+  .topRatedAnime {
     margin-top: 50px;
     margin-bottom: 30px;
     color: white;
-    font-family: 'Zen Dots', 'Poppins', sans-serif;
-    font-size: xx-large;
-    
-}
-.titleContainer{
+    font-family: "Zen Dots", "Poppins", sans-serif;
+    font-size: large;
+  }
+  .titleContainer {
     display: flex;
     justify-content: center;
+  }
 }

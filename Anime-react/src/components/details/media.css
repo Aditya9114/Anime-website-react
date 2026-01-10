@@ -1,12 +1,27 @@
-.mediaContainer{
+.mediaContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.mediaContainer iframe {
+  width: 90%;
+  height: 80vh;
+  border-radius: 10px;
+}
+@media (max-width: 768px) {
+  /* styles for phones & small tablets */
+  .mediaContainer {
     display: flex;
     justify-content: center;
     margin-top: 30px;
     margin-bottom: 30px;
-}
+  }
 
-.mediaContainer iframe{
+  .mediaContainer iframe {
     width: 90%;
-    height: 80vh;
+    height: 30vh;
     border-radius: 10px;
+  }
 }

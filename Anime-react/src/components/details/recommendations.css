@@ -22,7 +22,7 @@
   font-weight: bold;
   margin: 0;
   padding-bottom: 10px;
-   border-bottom: 1px solid #333; 
+  border-bottom: 1px solid #333;
 }
 
 /* Individual Card Container */
@@ -73,4 +73,95 @@
   font-size: 12px;
   cursor: pointer;
   transition: background-color 0.2s;
+}
+#rec-fallback {
+  font-family: "Poppins", sans-serif;
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 500;
+}
+@media (max-width: 768px) {
+  /* styles for phones & small tablets */
+  /* Container for the grid */
+  .outer-card-body {
+    display: flex;
+    justify-content: center; /* Centers the grid */
+    gap: 15px;
+    flex-wrap: wrap;
+    padding: 40px;
+    background-color: #121212; /* Dark background for the section */
+  }
+
+  /* Heading Container */
+  .rec-heading {
+    padding: 20px 16px;
+    background-color: #121212; /* Matches section background */
+  }
+
+  /* Heading Text (Targeting the specific ID) */
+  #recommendations {
+    font-family: Poppins, sans-serif;
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #333;
+  }
+
+  /* Individual Card Container */
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    width: 150px; /* Fixed width for uniform cards */
+    padding: 0;
+    gap: 10px;
+    transition: transform 0.2s ease;
+  }
+
+  /* Hover effect for the card */
+  .card-body:hover {
+    transform: translateY(-5px);
+  }
+
+  /* Card Image */
+  .card-body img {
+    width: 100%;
+    height: 180px; /* Fixed height so all images align */
+    object-fit: cover;
+    border-radius: 8px; /* Rounded corners like the example */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Anime Title (Targeting ID inside the class to be safe) */
+  .card-body #name {
+    color: #ffffff;
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 5px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adds "..." if text is too long */
+  }
+
+  /* Button Styling (Scoped to .card-body to not affect other buttons) */
+  .card-body button {
+    width: 100%;
+    padding: 10px;
+    background-color: #efefef;
+    color: rgb(46, 46, 46);
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  #rec-fallback {
+    font-family: "Poppins", sans-serif;
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: 500;
+  }
 }

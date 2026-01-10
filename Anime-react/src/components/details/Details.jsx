@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Characters } from "./Characters";
 import { CharacterCard } from "./CharacterCard";
 import { DetailsHeader } from "./DetailsHeader";
-import './details.css';
+
 import { Studio } from "./studio";
 import { Recommendations } from "./Recommendations";
 import axios from "axios";

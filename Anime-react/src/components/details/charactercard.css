@@ -1,17 +1,17 @@
 /* Card Container */
-*{
-    font-family: poppins, sans-serif;
+* {
+  font-family: poppins, sans-serif;
 }
 
 .charBody {
   display: flex;
   align-items: center;
   background-color: #1a1a1a; /* Darker, modern background */
-  border: 1px solid #333;    /* Subtle border */
+  border: 1px solid #333; /* Subtle border */
   border-radius: 12px;
   padding: 16px;
   margin-top: 20px;
-  gap: 24px;                 /* Spacing between image, info, and VAs */
+  gap: 24px; /* Spacing between image, info, and VAs */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
@@ -113,4 +113,124 @@ p {
 .info-block {
   display: flex;
   flex-direction: column;
+}
+@media (max-width: 768px) {
+  /* styles for phones & small tablets */
+  /* Card Container */
+  * {
+    font-family: poppins, sans-serif;
+  }
+
+  .charBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1a1a1a; /* Darker, modern background */
+    border: 1px solid #333; /* Subtle border */
+    border-radius: 12px;
+    padding: 10px;
+    margin-top: 20px;
+    gap: 18px; /* Spacing between image, info, and VAs */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .charBody:hover {
+    border-color: #555;
+    transform: translateY(-2px); /* Subtle lift on hover */
+  }
+
+  /* Image Styling */
+  .charImage {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 50%; /* Circular image looks more modern */
+    border: 2px solid #444;
+    flex-shrink: 0;
+  }
+
+  /* Typography Reset */
+  p {
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* Labels (e.g., "Name", "Japanese") */
+  .label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #888; /* Greyed out to reduce visual noise */
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+
+  /* Values (The actual data) */
+  .value {
+    font-size: 0.9rem;
+    color: #e0e0e0;
+    font-weight: 500;
+  }
+
+  /* Handle "Unknown" text */
+  .value.unknown {
+    color: #444; /* Make it very dim */
+    font-style: italic;
+    font-size: 0.85rem;
+  }
+
+  /* --- Layout Sections --- */
+
+  /* Primary Info (Name & Role) */
+  .primary-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 120px; /* Ensure name section has space */
+  }
+
+  .name-text {
+    font-size: 1.25rem; /* Larger Name */
+    font-weight: 700;
+    color: #fff;
+  }
+
+  /* Role Badge */
+  .role-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background-color: #333;
+    color: #ccc;
+    width: 100px;
+    text-align: center;
+  }
+
+  /* Optional: Color code specific roles if you want */
+  .role-badge.main {
+    background-color: #2b4c7e; /* Blue-ish */
+    color: #fff;
+  }
+  .role-badge.supporting {
+    background-color: #3e3e3e;
+    color: #aaa;
+  }
+
+  /* Voice Actors Grid */
+  /* This organizes the VAs into a clean grid on the right side */
+  .va-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 32px; /* row-gap column-gap */
+    border-left: 1px solid #333; /* Divider line */
+    padding-left: 24px;
+  }
+
+  .info-block {
+    display: flex;
+    flex-direction: column;
+  }
 }

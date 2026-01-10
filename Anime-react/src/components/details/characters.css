@@ -1,19 +1,43 @@
-.charGird{
-    padding: 15px;
+.charGird {
+  padding: 15px;
 }
-.heading{
+.heading {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  font-size: 25px;
+  color: white;
+}
+#btn1 {
+  display: flex;
+  justify-content: center;
+}
+#btn1 button {
+  background-color: rgb(255, 255, 255);
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+@media (max-width: 768px) {
+  /* styles for phones & small tablets */
+  .charGird {
+    padding: 5px;
+  }
+  .heading {
     display: flex;
     justify-content: center;
-    margin-top: 30px;
-    font-size: 25px;
+    margin-top: 15px;
+    font-size: 18px;
     color: white;
-}
-#btn1{
+  }
+  #btn1 {
     display: flex;
     justify-content: center;
-    
-}
-#btn1 button{
+  }
+  #btn1 button {
     background-color: rgb(255, 255, 255);
     border: none;
     padding: 10px 20px;
@@ -21,4 +45,58 @@
     border-radius: 5px;
     cursor: pointer;
     margin-bottom: 20px;
+  }
+}
+@media (max-width: 768px) {
+  /* styles for phones & small tablets */
+  .charGird {
+    padding: 15px;
+  }
+  .heading {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    font-size: 25px;
+    color: white;
+  }
+  #btn1 {
+    display: flex;
+    justify-content: center;
+  }
+  #btn1 button {
+    background-color: rgb(255, 255, 255);
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 768px) {
+    /* styles for phones & small tablets */
+    .charGird {
+      padding: 5px;
+    }
+    .heading {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+      font-size: 18px;
+      color: white;
+    }
+    #btn1 {
+      display: flex;
+      justify-content: center;
+    }
+    #btn1 button {
+      background-color: rgb(255, 255, 255);
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      margin-top: 20px;
+    }
+  }
 }

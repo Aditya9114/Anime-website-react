@@ -42,6 +42,7 @@
   font-family: 'Poppins', sans-serif;
   margin-top: 0.5rem;
   opacity: 0.85;
+  font-size: 12px;
 }
 @media (max-width: 768px) {
   /* styles for phones & small tablets */

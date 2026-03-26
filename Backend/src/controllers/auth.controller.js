@@ -5,6 +5,24 @@ import { ApiResponse } from "../utils/apiResponse.js";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 
+const generateAccessAndRefreshToken = async (userId) => {
+  try {
+    const user = await User.findById(userId);
+    const accessToken = user.generateAccessToken();
+    const refreshToken = user.generateRefreshToken();
+
+    user.refreshToken = refreshToken;
+
+    await user.save({ validateBeforeSave: false });
+    return { accessToken, refreshToken };
+  } catch (err) {
+    throw new ApiError(
+      500,
+      "Something went wrong while generating access token",
+    );
+  }
+};
+
 const registerUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -63,16 +81,27 @@ const loginUser = async (req, res) => {
     if (!correct) {
       throw new ApiError(400, "Invalid Credentials");
     } else {
-      const createdUser = await User.findById(existedUser._id).select(
+      const loggedInUser = await User.findById(existedUser._id).select(
         "-password -refreshToken -emailVerificationToken -emailVerificationExpiry",
       );
 
+      const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
+        loggedInUser._id,
+      );
+
+      const options = {
+        httpOnly: true,
+        secure: true,
+      };
+
       return res
         .status(200)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
         .json(
           new ApiResponse(
             201,
-            { user: createdUser },
+            { user: loggedInUser, accessToken, refreshToken },
             "User logged in Successfully",
           ),
         );

@@ -111,7 +111,8 @@ const loginUser = async (req, res) => {
   }
 };
 
-const logoutUser = asyncHandler(async (req,res) =>{
+const logoutUser = async (req,res) =>{
+  try{
     await User.findByIdAndUpdate(
         req.user._id,
         {
@@ -136,7 +137,11 @@ const logoutUser = asyncHandler(async (req,res) =>{
         .json(
             new ApiResponse(200, {}, "User logged Out")
         )
-})
+  }
+  catch(err){
+    throw err;
+  }
+}
 
 
-export { registerUser, loginUser, logout};
+export { registerUser, loginUser, logoutUser};

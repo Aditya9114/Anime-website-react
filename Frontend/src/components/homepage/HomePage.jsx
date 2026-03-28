@@ -1,6 +1,7 @@
 import { TopAiringGrid } from "./TopAiringGrid";
 import { TopRatedAnime } from "./TopRatedAnime";
 import { Header } from "./Header.jsx";
+import { LoginBar } from "./loginbar.jsx";
 import { SearchBar } from "./SearchBar.jsx";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -37,6 +38,7 @@ export function HomePage() {
     }, []);
   return (
     <>
+      {/* <LoginBar/> */}
       <Header />
       <section className="search-section">
         <SearchBar />

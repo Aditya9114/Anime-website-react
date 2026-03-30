@@ -43,24 +43,38 @@ const registerUser = async (req, res) => {
     });
 
     const createdUser = await User.findById(user._id).select(
-      "-password -refreshToken -emailVerificationToken -emailVerificationExpiry",
+      "-password -refreshToken -emailVerificationToken -emailVerificationExpiry"
     );
 
     if (!createdUser) {
       throw new ApiError(
         500,
-        "Something went wrong while registering the user",
+        "Something went wrong while registering the user"
       );
     }
 
+    const { accessToken, refreshToken } =
+      await generateAccessAndRefreshToken(createdUser._id);
+
+    const options = {
+      httpOnly: true,
+      secure: true,
+    };
+
     return res
       .status(201)
+      .cookie("accessToken", accessToken, options)
+      .cookie("refreshToken", refreshToken, options)
       .json(
         new ApiResponse(
-          200,
-          { user: createdUser },
-          "User registration successful",
-        ),
+          201,
+          {
+            user: createdUser,
+            accessToken,
+            refreshToken,
+          },
+          "User registered and logged in successfully"
+        )
       );
   } catch (err) {
     throw err;

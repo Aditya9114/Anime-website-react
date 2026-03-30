@@ -9,6 +9,16 @@ import axios from "axios";
 export function HomePage() {
   const [anime, setAnime] = useState([]);
   const [topAnime, setTopAnime] = useState([]);
+  const [user, setUser] = useState(null);
+
+  useEffect(()=>{
+    axios
+      .get("http://localhost:8000/api/v1/user/me", {
+      withCredentials: true,
+    })
+      .then((res) => setUser(res.data.data))
+      .catch((err)=> setUser(null));
+  },[]);
 
   useEffect(() => {
     axios
@@ -38,7 +48,7 @@ export function HomePage() {
     }, []);
   return (
     <>
-      {/* <LoginBar/> */}
+      <LoginBar user = {user}></LoginBar> 
       <Header />
       <section className="search-section">
         <SearchBar />

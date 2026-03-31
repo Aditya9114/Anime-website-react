@@ -58,7 +58,7 @@ const registerUser = async (req, res) => {
 
     const options = {
       httpOnly: true,
-      secure: true,
+      secure: false,
     };
 
     return res
@@ -105,7 +105,7 @@ const loginUser = async (req, res) => {
 
       const options = {
         httpOnly: true,
-        secure: true,
+        secure: false,
       };
 
       return res
@@ -141,7 +141,7 @@ const logoutUser = async (req,res) =>{
 
     const options = {
         httpOnly: true,
-        secure: true
+        secure: false
     };
 
     return res

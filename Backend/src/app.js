@@ -2,6 +2,9 @@ import express, { json } from "express";
 import cors from "cors";
 import authRouter from "./routes/auth.routes.js"
 import userRouter from "./routes/user.route.js"
+import cookieParser from "cookie-parser";
+
+
 
 const app = express();
 app.use(
@@ -10,6 +13,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(cookieParser());
 app.use(express.json());         // parse JSON request bodies
 app.use(express.urlencoded({ extended: true })); // parse form data
 app.use("/api/v1/auth",authRouter)

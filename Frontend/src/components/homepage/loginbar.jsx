@@ -1,31 +1,35 @@
 import "./loginbar.css";
+import { useNavigate } from "react-router-dom";
 
 export function LoginBar({ user }) {
+  const navigate = useNavigate();
+
   return (
     <>
       {user ? (
         <>
-          <h3>{user.username}</h3>
+        <div className="bar">
+          <h3 id="white">{user.username}</h3>
           <button>Logout</button>
+        </div>
+          
         </>
       ) : (
-        <>
-          <div className="bar">
-            <button
-              className="rectangle"
-              onClick={() => console.log("Sign Up clicked")}
-            >
-              Sign Up
-            </button>
+        <div className="bar">
+          <button
+            className="rectangle"
+            onClick={() => navigate("/register")}
+          >
+            Sign Up
+          </button>
 
-            <button
-              className="rectangle"
-              onClick={() => console.log("Login clicked")}
-            >
-              Login
-            </button>
-          </div>
-        </>
+          <button
+            className="rectangle"
+            onClick={() => navigate("/login")}
+          >
+            Login
+          </button>
+        </div>
       )}
     </>
   );

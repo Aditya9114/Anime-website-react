@@ -10,15 +10,21 @@ export function HomePage() {
   const [anime, setAnime] = useState([]);
   const [topAnime, setTopAnime] = useState([]);
   const [user, setUser] = useState(null);
+  // const [isLogin, setIsLogin] = useState(true);
 
-  useEffect(()=>{
-    axios
-      .get("http://localhost:8000/api/v1/user/me", {
+  useEffect(() => {
+  axios
+    .get("http://localhost:8000/api/v1/user/me", {
       withCredentials: true,
     })
-      .then((res) => setUser(res.data.data))
-      .catch((err)=> setUser(null));
-  },[]);
+    .then((res) => {
+      console.log("User:", res.data);
+      setUser(res.data.data);
+    })
+    .catch((err) => {
+      console.log("Not logged in");
+    });
+}, []);
 
   useEffect(() => {
     axios
@@ -48,7 +54,7 @@ export function HomePage() {
     }, []);
   return (
     <>
-      <LoginBar user = {user}></LoginBar> 
+      <LoginBar user = {user} /*isLogin={isLogin} setIsLogin = {setIsLogin}*/></LoginBar> 
       <Header />
       <section className="search-section">
         <SearchBar />

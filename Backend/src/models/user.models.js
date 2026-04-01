@@ -42,6 +42,10 @@ const userSchema = new Schema(
             type:[String],
             default: []
         },
+        favourites:{
+            type:[Number],
+            default: []
+        },
         isEmailVerified:{
             type:Boolean,
             default:false

@@ -2,6 +2,7 @@ import express, { json } from "express";
 import cors from "cors";
 import authRouter from "./routes/auth.routes.js"
 import userRouter from "./routes/user.route.js"
+import favouriteRouter from "./routes/favourites.routes.js"
 import cookieParser from "cookie-parser";
 
 
@@ -18,6 +19,7 @@ app.use(express.json());         // parse JSON request bodies
 app.use(express.urlencoded({ extended: true })); // parse form data
 app.use("/api/v1/auth",authRouter)
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/favourites", favouriteRouter);
 
 
 app.get('/', (req,res)=>{

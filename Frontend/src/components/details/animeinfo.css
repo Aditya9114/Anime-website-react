@@ -43,7 +43,9 @@
 
 /* Rating Row */
 .rating-row {
+  display: flex;
   margin-bottom: 20px;
+  gap: 20px;
 }
 
 .score-badge {
@@ -126,5 +128,56 @@
   .rating-row {
     justify-content: center;
     display: flex;
+  }
+}
+/* Add to Favorites Button */
+.btn-fav {
+  background-color: rgba(255, 255, 255, 0.05); /* Very subtle translucent dark */
+  color: #ffffff;
+  border: 1px solid #e50914; /* Signature Red Border */
+  padding: 8px 20px;
+  border-radius: 4px; /* Matches the login/signup button corners */
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.heart-icon {
+  color: #e50914; /* Red heart */
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+/* Hover State */
+.btn-fav:hover {
+  background-color: #e50914; /* Fills with red */
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.4); /* Red glow */
+  transform: translateY(-2px); /* Subtle lift */
+}
+
+.btn-fav:hover .heart-icon {
+  color: #ffffff; /* Heart turns white when background is red */
+  transform: scale(1.2); /* Heart "pops" on hover */
+}
+
+/* Active/Click State */
+.btn-fav:active {
+  transform: scale(0.95); /* Button shrinks slightly when clicked */
+}
+
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+  .btn-fav {
+    width: 100%; /* Full width on mobile for easier tapping */
+    justify-content: center;
+    margin-top: 10px;
   }
 }

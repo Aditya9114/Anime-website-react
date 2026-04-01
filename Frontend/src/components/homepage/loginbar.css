@@ -1,16 +1,77 @@
-.bar{
-    display: flex;
-    color: white;
-    flex-direction: row-reverse;
-    gap: 20px;
-    padding: 1px;
+/* Floating, translucent container blending into the header background */
+.login-bar-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end; 
+  padding: 8px 40px; 
+  background-color: rgba(20, 20, 20, 0.5); /* Semi-transparent cinematic black */
+  backdrop-filter: blur(8px); 
+  -webkit-backdrop-filter: blur(8px); /* Safari support */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
-.rectangle{
-    border: 1px solid #ffffff;
-    padding: 2px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 2px;
-    background-color: #181818;
-    color: white;
+
+/* Flexbox layout for the items inside the bar */
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* User's name styling */
+.username {
+  font-size: 15px;
+  color: #ffffff; 
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-right: 8px;
+}
+
+/* Universal Button Styles */
+.btn {
+  padding: 8px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 4px; /* Sharper corners fit the dark/media aesthetic better */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  color: #ffffff; /* White text for all buttons in dark mode */
+}
+
+/* Primary Action Button (Sign Up) */
+.btn-primary {
+  background-color: #e50914; /* Signature Red */
+}
+
+.btn-primary:hover {
+  background-color: #f40612; /* Slightly brighter red on hover */
+  transform: scale(1.05); /* Slight pop out effect */
+}
+
+/* Secondary Action Button (Login) */
+.btn-outline {
+  background-color: #181818; /* Darkest gray */
+  border: 1px solid #333; /* Dark gray border */
+}
+
+.btn-outline:hover {
+  background-color: #333; /* Lighter gray on hover */
+  border-color: #e50914; /* Subtle red border glow on hover */
+}
+
+/* Destructive/Logout Button */
+.btn-logout {
+  background-color: #181818;
+  border: 1px solid #333;
+}
+
+.btn-logout:hover {
+  background-color: #e50914; /* Fills with red on hover to indicate destructive action */
+  border-color: #e50914;
 }

@@ -64,7 +64,7 @@ useEffect(() => {
     <>
       <Media anime={anime}></Media>
       <DetailsHeader></DetailsHeader>
-      <AnimeInfo anime={anime}></AnimeInfo>
+      <AnimeInfo anime={anime} id={id}></AnimeInfo>
       <Characters id={id}></Characters>
       <Studio anime={anime}></Studio>
       <Recommendations id={id}></Recommendations>

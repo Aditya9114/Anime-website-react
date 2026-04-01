@@ -1,57 +1,148 @@
+/* Ensure the page takes up full screen and uses the dark background */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .container {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f4f4f4;
+  background-color: #141414; /* Deep cinematic black */
+  
+  /* Optional: If you want a background image here later, you can add it, 
+     and the form box will blur over it nicely just like the header! */
 }
 
+/* Translucent, sleek glassmorphism dark box */
 .form-box {
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  width: 300px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: rgba(20, 20, 20, 0.85);
+  padding: 50px 40px;
+  border-radius: 6px; /* Sharper, modern edges */
+  width: 100%;
+  max-width: 400px; /* Limits width on large screens */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .form-box h2 {
-  text-align: center;
-  margin-bottom: 20px;
+  text-align: left; /* Left-aligned headers look more premium in media apps */
+  margin-bottom: 30px;
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
+/* Input styling - Dark, subtle, clean */
 .form-box input {
   width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  background-color: #333333; /* Dark gray input */
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 15px;
+  transition: all 0.2s ease;
 }
 
+.form-box input::placeholder {
+  color: #8c8c8c;
+}
+
+/* Focus state - Signature Red highlight */
+.form-box input:focus {
+  outline: none;
+  background-color: #444444; /* Slightly lighter gray when typing */
+  /* Adds a slick red underline effect when the user clicks the input */
+  box-shadow: 0 2px 0 0 #e50914; 
+}
+
+/* Primary CTA Button - Signature Red */
 .form-box button {
   width: 100%;
-  padding: 10px;
+  padding: 14px;
+  margin-top: 24px;
   border: none;
-  background: #007bff;
+  background-color: #e50914;
   color: white;
   font-size: 16px;
-  border-radius: 5px;
+  font-weight: 600;
+  border-radius: 4px;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .form-box button:hover {
-  background: #0056b3;
+  background-color: #f40612;
+  transform: scale(1.02); /* Pop out effect */
 }
 
+/* Toggle text ("Don't have an account?") */
 .toggle {
-  margin-top: 15px;
-  text-align: center;
-  color: #007bff;
+  margin-top: 24px;
+  text-align: left;
+  color: #b3b3b3; /* Subdued text */
+  font-size: 14px;
   cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.toggle:hover {
+  color: #ffffff; /* Brightens up on hover */
+  text-decoration: underline;
+}
+/* --- TOAST POPUP NOTIFICATION --- */
+.toast-popup {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  background: rgba(20, 20, 20, 0.95);
+  border-left: 4px solid #e50914; /* Signature red accent */
+  color: #ffffff;
+  padding: 16px 24px;
+  border-radius: 4px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-weight: 500;
+  font-size: 15px;
+  
+  /* Smooth slide-in animation */
+  animation: slideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.toast-icon {
+  background-color: #e50914;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Keyframes for the slide-in effect */
+@keyframes slideIn {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }

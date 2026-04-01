@@ -22,7 +22,7 @@ export function HomePage() {
       setUser(res.data.data);
     })
     .catch((err) => {
-      console.log("Not logged in");
+      console.log("Not logged in" ,err);
     });
 }, []);
 
@@ -54,7 +54,7 @@ export function HomePage() {
     }, []);
   return (
     <>
-      <LoginBar user = {user} /*isLogin={isLogin} setIsLogin = {setIsLogin}*/></LoginBar> 
+      <LoginBar user = {user} setUser = {setUser} /*isLogin={isLogin} setIsLogin = {setIsLogin}*/></LoginBar> 
       <Header />
       <section className="search-section">
         <SearchBar />

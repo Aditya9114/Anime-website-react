@@ -12,6 +12,9 @@ export default function Login({ isLogin }) {
     password: "",
   });
 
+  // 1️⃣ NEW: State to control our custom popup
+  const [toast, setToast] = useState({ show: false, message: "" });
+
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -38,8 +41,17 @@ export default function Login({ isLogin }) {
 
         console.log("Login Success:", res.data);
 
-        // ✅ redirect after login
-        navigate("/");
+        // 2️⃣ NEW: Extract the username from the JSON response
+        const username = res.data.data.user.username;
+        
+        // 3️⃣ NEW: Show the popup
+        setToast({ show: true, message: `Welcome back, ${username}!` });
+
+        // 4️⃣ NEW: Delay the redirect by 1.5 seconds so they can read the popup
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
+
       } else {
         // 🔹 REGISTER API
         const res = await axios.post(
@@ -48,17 +60,33 @@ export default function Login({ isLogin }) {
         );
 
         console.log("Register Success:", res.data);
-
-        // ✅ after register → go to login
-        navigate("/login");
+        
+        // Show success popup for registration too
+        setToast({ show: true, message: "Registration successful! Please login." });
+        
+        setTimeout(() => {
+          setToast({ show: false, message: "" }); // Hide popup
+          navigate("/login");
+        }, 1500);
       }
     } catch (err) {
       console.error("Error:", err.response?.data || err.message);
+      // Optional: You could also use the toast here to show the error message!
+      setToast({ show: true, message: err.response?.data?.message || "Something went wrong." });
+      setTimeout(() => setToast({ show: false, message: "" }), 3000);
     }
   };
 
   return (
     <div className="container">
+      {/* 5️⃣ NEW: The actual popup UI, conditionally rendered */}
+      {toast.show && (
+        <div className="toast-popup">
+          <span className="toast-icon">✓</span>
+          <p>{toast.message}</p>
+        </div>
+      )}
+
       <div className="form-box">
         <h2>{isLogin ? "Login" : "Register"}</h2>
 
@@ -97,7 +125,6 @@ export default function Login({ isLogin }) {
           </button>
         </form>
 
-        {/* ✅ FIXED toggle */}
         <p
           onClick={() => navigate(isLogin ? "/register" : "/login")}
           className="toggle"

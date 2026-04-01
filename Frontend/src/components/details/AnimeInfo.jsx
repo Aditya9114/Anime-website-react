@@ -1,6 +1,7 @@
 import "./animeinfo.css";
+import axios from "axios";
 
-export function AnimeInfo({ anime }) {
+export function AnimeInfo({ anime, id }) {
   // If no data, don't render anything (cleaner than checking everywhere)
   if (!anime) return null;
 
@@ -21,6 +22,7 @@ export function AnimeInfo({ anime }) {
         <h1 className="anime-title">{anime.title_english || anime.title}</h1>
 
         {/* Rating Section */}
+        {/* Rating Section */}
         <div className="rating-row">
           <div className="score-badge">
             <img
@@ -28,10 +30,24 @@ export function AnimeInfo({ anime }) {
               alt="star"
               className="star-icon"
             />
-
             <span className="score-val">{anime.score}</span>
             <span className="score-max">/ 10</span>
           </div>
+
+          {/* Updated Button */}
+          <button
+            className="btn-fav"
+            onClick={() => {
+              axios.post(
+                "http://localhost:8000/api/v1/favourites",
+                { anime_id: id }, // send properly
+                { withCredentials: true },
+              );
+            }}
+          >
+            <span className="heart-icon">❤</span>
+            Add to favorites
+          </button>
         </div>
 
         {/* Synopsis */}

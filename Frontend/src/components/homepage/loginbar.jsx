@@ -1,36 +1,67 @@
+import axios from "axios";
 import "./loginbar.css";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react"; // 1️⃣ NEW: Import useState
 
-export function LoginBar({ user }) {
+export function LoginBar({ user, setUser }) {
   const navigate = useNavigate();
+  
+  // 2️⃣ NEW: State to control the logout toast popup
+  const [toast, setToast] = useState({ show: false, message: "" });
 
   return (
-    <>
-      {user ? (
-        <>
-        <div className="bar">
-          <h3 id="white">{user.username}</h3>
-          <button>Logout</button>
+    <div className="login-bar-container">
+      
+      {/* 3️⃣ NEW: The Toast Popup UI */}
+      {toast.show && (
+        <div className="toast-popup">
+          <span className="toast-icon">✓</span>
+          <p>{toast.message}</p>
         </div>
-          
-        </>
+      )}
+
+      {user ? (
+        <div className="bar">
+          <span className="username">{user.username}</span>
+          <button
+            className="btn btn-logout"
+            onClick={async () => {
+              try {
+                await axios.post(
+                  "http://localhost:8000/api/v1/auth/logout",
+                  {},
+                  { withCredentials: true }
+                );
+
+                // 4️⃣ NEW: Show the toast and instantly remove the user from the UI
+                setToast({ show: true, message: "Successfully logged out." });
+                setUser(null);
+
+                // 5️⃣ NEW: Hide the toast after 1.5 seconds
+                setTimeout(() => {
+                  setToast({ show: false, message: "" });
+                }, 1500);
+
+              } catch (err) {
+                console.error("Logout failed", err);
+                setToast({ show: true, message: "Logout failed. Try again." });
+                setTimeout(() => setToast({ show: false, message: "" }), 2000);
+              }
+            }}
+          >
+            Logout
+          </button>
+        </div>
       ) : (
         <div className="bar">
-          <button
-            className="rectangle"
-            onClick={() => navigate("/register")}
-          >
-            Sign Up
-          </button>
-
-          <button
-            className="rectangle"
-            onClick={() => navigate("/login")}
-          >
+          <button className="btn btn-outline" onClick={() => navigate("/login")}>
             Login
+          </button>
+          <button className="btn btn-primary" onClick={() => navigate("/register")}>
+            Sign Up
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 }

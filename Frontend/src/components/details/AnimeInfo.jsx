@@ -38,11 +38,21 @@ export function AnimeInfo({ anime, id }) {
           <button
             className="btn-fav"
             onClick={() => {
-              axios.post(
-                "http://localhost:8000/api/v1/favourites",
-                { anime_id: id }, // send properly
-                { withCredentials: true },
-              );
+              axios
+                .post(
+                  "http://localhost:8000/api/v1/favourites",
+                  { anime_id: id },
+                  { withCredentials: true },
+                )
+                .then((res) => {
+                  console.log("Result:", res.data);
+                })
+                .catch((err) => {
+                  if (err.response?.status === 401) {
+                    alert("Please log in to add favourites");
+                    console.log(err);
+                  }
+                });
             }}
           >
             <span className="heart-icon">❤</span>

@@ -176,7 +176,7 @@
 /* Mobile Adjustment */
 @media (max-width: 768px) {
   .btn-fav {
-    width: 100%; /* Full width on mobile for easier tapping */
+    width: 50%; /* Full width on mobile for easier tapping */
     justify-content: center;
     margin-top: 10px;
   }

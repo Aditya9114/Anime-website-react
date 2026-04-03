@@ -58,6 +58,28 @@ export function AnimeInfo({ anime, id }) {
             <span className="heart-icon">❤</span>
             Add to favorites
           </button>
+          <button
+            className="btn-fav"
+            onClick={() => {
+              axios
+                .post(
+                  "http://localhost:8000/api/v1/watchlist",
+                  { anime_id: id },
+                  { withCredentials: true },
+                )
+                .then((res) => {
+                  console.log(res.data.message);
+                })
+                .catch((err) => {
+                  if (err.response?.status === 401) {
+                    alert("Please log in to add it in your watchlist");
+                    console.log(err);
+                  }
+                });
+            }}
+          >
+            Add to WatchList
+          </button>
         </div>
 
         {/* Synopsis */}

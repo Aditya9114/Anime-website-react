@@ -67,6 +67,24 @@ export function LoginBar({ user, setUser }) {
           >
             Favourites
           </button>
+          <button
+            className="btn"
+            onClick={() => {
+              axios.get(
+                "http://localhost:8000/api/v1/watchlist/list",
+                { withCredentials: true },
+              )
+              .then((res)=>{
+                console.log(res.data.data);
+              })
+              .catch((err)=>{
+                console.log(err);
+                alert("Something went wrong")
+              })
+            }}
+          >
+            WatchList
+          </button>
         </div>
       ) : (
         <div className="bar">

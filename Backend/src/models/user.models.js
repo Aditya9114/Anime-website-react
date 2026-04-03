@@ -39,7 +39,7 @@ const userSchema = new Schema(
             required:[true,"Password is required"]
         },
         watchList:{
-            type:[String],
+            type:[Number],
             default: []
         },
         favourites:{

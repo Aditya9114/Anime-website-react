@@ -3,6 +3,7 @@ import cors from "cors";
 import authRouter from "./routes/auth.routes.js"
 import userRouter from "./routes/user.route.js"
 import favouriteRouter from "./routes/favourites.routes.js"
+import WatchListRouter from "./routes/watchlist.routes.js"
 import cookieParser from "cookie-parser";
 
 
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: true })); // parse form data
 app.use("/api/v1/auth",authRouter)
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/favourites", favouriteRouter);
+app.use("/api/v1/watchlist", WatchListRouter)
 
 
 app.get('/', (req,res)=>{

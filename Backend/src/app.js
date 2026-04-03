@@ -4,6 +4,7 @@ import authRouter from "./routes/auth.routes.js"
 import userRouter from "./routes/user.route.js"
 import favouriteRouter from "./routes/favourites.routes.js"
 import WatchListRouter from "./routes/watchlist.routes.js"
+import CommentsRouter from "./routes/comments.routes.js"
 import cookieParser from "cookie-parser";
 
 
@@ -22,6 +23,7 @@ app.use("/api/v1/auth",authRouter)
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/favourites", favouriteRouter);
 app.use("/api/v1/watchlist", WatchListRouter)
+app.use("/api/v1/comments", CommentsRouter);
 
 
 app.get('/', (req,res)=>{

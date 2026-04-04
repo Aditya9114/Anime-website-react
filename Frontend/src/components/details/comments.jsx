@@ -15,7 +15,7 @@ export default function Comments() {
   // 1️⃣ Extract the fetch logic into its own function so we can call it multiple times
   const fetchComments = () => {
     axios
-      .get(`http://localhost:8000/api/v1/comments/${id}`, {
+      .get(`${import.meta.env.VITE_API_URL}/api/v1/comments/${id}`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -37,7 +37,7 @@ export default function Comments() {
 
     try {
       await axios.post(
-        "http://localhost:8000/api/v1/comments/add",
+        `${import.meta.env.VITE_API_URL}/api/v1/comments/add`,
         {
           animeId: Number(id),
           content: content,

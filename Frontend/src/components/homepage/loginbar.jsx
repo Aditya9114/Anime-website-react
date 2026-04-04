@@ -27,7 +27,7 @@ export function LoginBar({ user, setUser }) {
             onClick={async () => {
               try {
                 await axios.post(
-                  "http://localhost:8000/api/v1/auth/logout",
+                  `${import.meta.env.VITE_API_URL}/api/v1/auth/logout`,
                   {},
                   { withCredentials: true },
                 );
@@ -53,7 +53,7 @@ export function LoginBar({ user, setUser }) {
             className="btn"
             onClick={() => {
               axios.get(
-                "http://localhost:8000/api/v1/favourites/list",
+                `${import.meta.env.VITE_API_URL}/api/v1/favourites/list`,
                 { withCredentials: true },
               )
               .then((res)=>{
@@ -71,7 +71,7 @@ export function LoginBar({ user, setUser }) {
             className="btn"
             onClick={() => {
               axios.get(
-                "http://localhost:8000/api/v1/watchlist/list",
+                `${import.meta.env.VITE_API_URL}/api/v1/watchlist/list`,
                 { withCredentials: true },
               )
               .then((res)=>{

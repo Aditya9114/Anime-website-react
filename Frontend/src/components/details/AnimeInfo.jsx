@@ -40,7 +40,7 @@ export function AnimeInfo({ anime, id }) {
             onClick={() => {
               axios
                 .post(
-                  "http://localhost:8000/api/v1/favourites",
+                  `${import.meta.env.VITE_API_URL}/api/v1/favourites`,
                   { anime_id: id },
                   { withCredentials: true },
                 )
@@ -63,7 +63,7 @@ export function AnimeInfo({ anime, id }) {
             onClick={() => {
               axios
                 .post(
-                  "http://localhost:8000/api/v1/watchlist",
+                  `${import.meta.env.VITE_API_URL}/api/v1/watchlist`,
                   { anime_id: id },
                   { withCredentials: true },
                 )

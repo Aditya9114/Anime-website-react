@@ -29,7 +29,7 @@ export default function Login({ isLogin }) {
       if (isLogin) {
         // 🔹 LOGIN API
         const res = await axios.post(
-          "http://localhost:8000/api/v1/auth/login",
+          `${import.meta.env.VITE_API_URL}/api/v1/auth/login`,
           {
             email: formData.email,
             password: formData.password,
@@ -55,7 +55,7 @@ export default function Login({ isLogin }) {
       } else {
         // 🔹 REGISTER API
         const res = await axios.post(
-          "http://localhost:8000/api/v1/auth/register",
+          `${import.meta.env.VITE_API_URL}/api/v1/auth/register`,
           formData
         );
 

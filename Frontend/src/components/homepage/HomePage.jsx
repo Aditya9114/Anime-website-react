@@ -14,7 +14,7 @@ export function HomePage() {
 
   useEffect(() => {
   axios
-    .get("http://localhost:8000/api/v1/user/me", {
+    .get(`${import.meta.env.VITE_API_URL}/api/v1/user/me`, {
       withCredentials: true,
     })
     .then((res) => {

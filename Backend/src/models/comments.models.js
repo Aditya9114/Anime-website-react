@@ -13,6 +13,10 @@ const commentsSchema = new Schema(
       ref: "User",
       required: true,
     },
+    username: {
+      type: String,
+      required: true,
+    },
 
     content: {
       type: String,
@@ -22,7 +26,7 @@ const commentsSchema = new Schema(
       maxlength: 500,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const Comments = mongoose.model("Comments", commentsSchema);

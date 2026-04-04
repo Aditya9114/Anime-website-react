@@ -28,24 +28,31 @@ const getComments = async (req, res) => {
 
 const addComment = async (req, res) => {
   try {
+    console.log("USER:", req.user);   // ✅ ADD HERE
+    console.log("BODY:", req.body);   // (optional but useful)
+
     const { animeId, content } = req.body;
+
     if (!animeId || !content) {
       throw new ApiError(400, "Anime ID and text are required");
     }
+
     const comment = await Comments.create({
       animeId,
       user: req.user._id,
+      username: req.user.username,
       content
     });
+
     return res
-            .status(201)
-            .json(
-                new ApiResponse(201,comment, "Comment Added Successfully")
-            )
+      .status(201)
+      .json(new ApiResponse(201, comment, "Comment Added Successfully"));
+
   } catch (err) {
+    console.log(err); // also add this if not already
     return res
-    .status(500)
-    .json(new ApiError(500,"Something went Wrong"))
+      .status(500)
+      .json(new ApiError(500, "Something went Wrong"));
   }
 };
 

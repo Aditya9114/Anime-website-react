@@ -6,7 +6,7 @@ import { Characters } from "./Characters";
 import { CharacterCard } from "./CharacterCard";
 import { DetailsHeader } from "./DetailsHeader";
 import Comments from "./comments";
-import { Studio } from "./studio";
+import { Studio } from "./Studio";
 import { Recommendations } from "./Recommendations";
 import axios from "axios";
 

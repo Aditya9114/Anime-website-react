@@ -1,0 +1,118 @@
+/* The outer wrapper that holds all the comments */
+/* The outer wrapper that holds all the comments */
+.commentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Perfect spacing between each comment */
+  margin-top: 32px; /* Gives some breathing room from the content above it */
+  width: auto; /* Acquires the full length of the parent container */
+  /* Removed max-width and auto-margins so it stretches completely */
+  margin-left: 20px;
+  margin-right: 20px;
+}
+/* The individual comment card */
+.commentBox {
+  background-color: rgba(30, 30, 30, 0.6); /* Subtle translucent dark box */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Premium glass edge */
+  border-radius: 8px; /* Smooth corners */
+  padding: 20px 24px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+/* Subtle highlight and lift effect when the user hovers over a comment */
+.commentBox:hover {
+  background-color: rgba(45, 45, 45, 0.7); 
+  transform: translateY(-2px); /* Makes the comment slightly "pop" up */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Header of the comment (Username + Date) */
+.commentUsername {
+  display: flex;
+  align-items: baseline; 
+  justify-content: space-between; /* Pushes name to left, date to right */
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Separator line */
+}
+
+/* The Username */
+.commentUsername p:first-child {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin: 0;
+  letter-spacing: 0.3px;
+}
+
+/* The Date */
+.commentUsername p:last-child {
+  color: #888888; /* Subdued gray so it doesn't distract */
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* The actual comment text */
+.commentContent p {
+  color: #cccccc; /* Soft gray for high readability on dark backgrounds */
+  line-height: 1.6; /* Adds breathing room between lines of text */
+  font-size: 0.95rem;
+  margin: 0;
+}
+/* --- NEW FORM STYLES --- */
+.commentForm {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  background-color: rgba(30, 30, 30, 0.4);
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.commentForm input {
+  flex: 1; /* Makes the input stretch to fill the space */
+  background-color: rgba(20, 20, 20, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: #ffffff;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.commentForm input:focus {
+  outline: none;
+  border-color: #e50914; /* Signature red border on focus */
+  background-color: #1a1a1a;
+}
+
+.btn-submit {
+  background-color: #e50914; /* Signature Red */
+  color: #ffffff;
+  border: none;
+  padding: 0 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-submit:hover {
+  background-color: #f40612;
+  transform: translateY(-2px); /* Slight lift */
+  box-shadow: 0 4px 12px rgba(229, 9, 20, 0.3); /* Red glow */
+}
+#reviews{
+    font-family: Poppins, sans-serif;
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #333;
+}

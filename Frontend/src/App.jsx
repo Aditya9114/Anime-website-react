@@ -8,6 +8,7 @@ import { TopRatedAnime } from "./components/homepage/TopRatedAnime";
 import { TopAiringGrid } from "./components/homepage/TopAiringGrid";
 import { HomePage } from "./components/homepage/HomePage";
 import { AllCharacters } from "./components/AllCharacters/AllCharacters";
+
 import Login from "./components/login/login";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Route path="/All-Characters/:id" element={<AllCharacters />}></Route>
       <Route path="/login" element={<Login isLogin={true} />} />
       <Route path="/register" element={<Login isLogin={false} />} />
+      {/* <Route path="/comments" element={<CommentForm/>} /> */}
     </Routes>
   );
 }

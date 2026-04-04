@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Characters } from "./Characters";
 import { CharacterCard } from "./CharacterCard";
 import { DetailsHeader } from "./DetailsHeader";
-
+import Comments from "./comments";
 import { Studio } from "./studio";
 import { Recommendations } from "./Recommendations";
 import axios from "axios";
@@ -67,6 +67,7 @@ useEffect(() => {
       <AnimeInfo anime={anime} id={id}></AnimeInfo>
       <Characters id={id}></Characters>
       <Studio anime={anime}></Studio>
+      <Comments></Comments>
       <Recommendations id={id}></Recommendations>
     </>
   );

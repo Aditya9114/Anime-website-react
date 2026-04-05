@@ -12,7 +12,11 @@ import cookieParser from "cookie-parser";
 const app = express();
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://anime-website-react-nine.vercel.app"],
+    origin: [
+      "http://localhost:5173",
+      "https://anime-website-react-nine.vercel.app",        // ✅ Custom domain
+      "https://anime-website-react-2un1qot50-aditya9114s-projects.vercel.app"  // ✅ Deployment URL
+    ],
     credentials: true,
   })
 );

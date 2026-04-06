@@ -5,7 +5,7 @@ export function TopAiringGrid({ anime }) {
   return (
     <>
       <div className="titleContainer">
-        <div className="topRatedAnime">Top 5 Airing Anime</div>
+        <div className="topRatedAnime">Top 10 Airing Anime</div>
       </div>
 
       <div className="card-grid">

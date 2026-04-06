@@ -39,7 +39,7 @@ export function HomePage() {
           params: {
            filter: "airing",
             type: "tv",
-             limit: 5,
+             limit: 10,
           },
         });
   

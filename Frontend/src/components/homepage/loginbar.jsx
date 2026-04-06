@@ -58,6 +58,7 @@ export function LoginBar({ user, setUser }) {
               )
               .then((res)=>{
                 console.log(res.data.data);
+                 navigate("favourites")
               })
               .catch((err)=>{
                 console.log(err);
@@ -76,6 +77,7 @@ export function LoginBar({ user, setUser }) {
               )
               .then((res)=>{
                 console.log(res.data.data);
+
               })
               .catch((err)=>{
                 console.log(err);

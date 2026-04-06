@@ -46,7 +46,7 @@ export function Grid() {
 
   if(loading === "Completed"){
     return(
-        <CardGrid anime={anime} />
+        <CardGrid anime={anime} title="Favourites"/>
     )
   }
   else{

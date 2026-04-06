@@ -60,7 +60,7 @@ export function HomePage() {
         <SearchBar />
       </section>
       <TopAiringGrid anime={anime} />
-      <TopRatedAnime topAnime={topAnime}/>
+      <TopRatedAnime topAnime={topAnime} />
     </>
   );
 }

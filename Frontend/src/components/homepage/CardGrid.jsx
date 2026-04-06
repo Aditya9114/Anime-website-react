@@ -1,11 +1,11 @@
 import { Card } from "./Card";
 import "./cardgrid.css";
 
-export function CardGrid({ anime }) {
+export function CardGrid({ anime,title }) {
   return (
     <>
       <div className="titleContainer">
-        <div className="topRatedAnime">Top 25 Highest-Rated Anime</div>
+        <div className="topRatedAnime">{title}</div>
       </div>
       <div className="card-grid">
         {anime.map((topAnime) => {

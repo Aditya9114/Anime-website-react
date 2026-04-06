@@ -77,7 +77,7 @@ export function LoginBar({ user, setUser }) {
               )
               .then((res)=>{
                 console.log(res.data.data);
-
+                navigate("watchlist")
               })
               .catch((err)=>{
                 console.log(err);

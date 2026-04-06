@@ -8,7 +8,8 @@ import { TopRatedAnime } from "./components/homepage/TopRatedAnime";
 import { TopAiringGrid } from "./components/homepage/TopAiringGrid";
 import { HomePage } from "./components/homepage/HomePage";
 import { AllCharacters } from "./components/AllCharacters/AllCharacters";
-import { Grid } from "./components/favourites/favGrid";
+import { Grid } from "./components/Menu-btns/favGrid";
+import { WatchListGrid } from "./components/Menu-btns/watchListGrid";
 
 import Login from "./components/login/login";
 
@@ -22,6 +23,7 @@ function App() {
       <Route path="/register" element={<Login isLogin={false} />} />
       {/* <Route path="/comments" element={<CommentForm/>} /> */}
       <Route path="/favourites" element={<Grid />} />
+      <Route path="/watchlist" element={<WatchListGrid />} />
     </Routes>
   );
 }

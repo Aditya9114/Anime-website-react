@@ -51,7 +51,7 @@ export function WatchListGrid() {
   }
   else{
     return(
-        <p style={{ color: "white" }}>Loading...</p>
+        <p style={{ color: "white" }}>Loading....</p>
     )
   }
 }

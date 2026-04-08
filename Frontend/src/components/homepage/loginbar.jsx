@@ -50,7 +50,7 @@ export function LoginBar({ user, setUser }) {
             Logout
           </button>
           <button
-            className="btn"
+            className="btn menu-btn"
             onClick={() => {
               axios.get(
                 `${import.meta.env.VITE_API_URL}/api/v1/favourites/list`,
@@ -69,7 +69,7 @@ export function LoginBar({ user, setUser }) {
             Favourites
           </button>
           <button
-            className="btn"
+            className="btn menu-btn"
             onClick={() => {
               axios.get(
                 `${import.meta.env.VITE_API_URL}/api/v1/watchlist/list`,

@@ -75,3 +75,6 @@
   background-color: #e50914; /* Fills with red on hover to indicate destructive action */
   border-color: #e50914;
 }
+.menu-btn{
+  background-color: #181818;
+}

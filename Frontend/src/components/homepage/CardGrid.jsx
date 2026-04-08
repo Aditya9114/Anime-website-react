@@ -1,7 +1,7 @@
 import { Card } from "./Card";
 import "./cardgrid.css";
 
-export function CardGrid({ anime,title }) {
+export function CardGrid({ anime,title, setAnime }) {
   return (
     <>
       <div className="titleContainer">
@@ -32,6 +32,8 @@ export function CardGrid({ anime,title }) {
               src={topAnime.images.jpg.large_image_url}
               info={info}
               id = {topAnime.mal_id}
+              title = {title}
+              setAnime = {setAnime}
             />
           );
         })}

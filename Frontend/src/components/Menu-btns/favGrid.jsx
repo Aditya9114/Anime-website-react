@@ -44,9 +44,15 @@ export function Grid() {
     load();
   }, []);
 
-  if(loading === "Completed"){
+  if(loading === "Completed" && anime.length == 0 ){
     return(
-        <CardGrid anime={anime} title="Favourites"/>
+      <h1>Your Favourites is Empty</h1>
+    )
+  }
+
+  else if(loading === "Completed"){
+    return(
+        <CardGrid anime={anime} title="Favourites" setAnime={setAnime}/>
     )
   }
   else{

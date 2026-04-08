@@ -44,11 +44,18 @@ export function WatchListGrid() {
     load();
   }, []);
 
-  if(loading === "Completed"){
+  if(loading === "Completed" && anime.length == 0 ){
     return(
-        <CardGrid anime={anime} title="WatchList"/>
+      <h1>Your Watchlist is Empty</h1>
     )
   }
+
+  else if(loading === "Completed"){
+    return(
+        <CardGrid anime={anime} title="WatchList" setAnime={setAnime}/>
+    )
+  }
+
   else{
     return(
         <p style={{ color: "white" }}>Loading....</p>

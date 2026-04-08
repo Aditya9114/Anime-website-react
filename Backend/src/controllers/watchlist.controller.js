@@ -40,5 +40,26 @@ const getwatchlist = async(req,res) =>{
   }
 }
 
+const removeWL = async(req,res)=>{
+  try{
+    const {animeId} = req.body;
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      {
+        $pull: { watchList: Number(animeId) }
+      },
+      { new: true }
+    );
+    res.status(200).json({
+      success: true,
+      message: "Removed from watchlist",
+      user
+    });
+  }
+  catch(err){
+    throw new ApiError(500, "Failed to remove from watchlist");
+  }
+}
 
-export {addToWatchlist, getwatchlist};
+
+export {addToWatchlist, getwatchlist, removeWL};

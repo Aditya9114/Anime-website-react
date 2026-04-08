@@ -38,4 +38,25 @@ const getFav = async(req,res) =>{
   }
 }
 
-export { addToFavourites, getFav };
+const removeFav = async(req,res)=>{
+  try{
+    const {animeId} = req.body;
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      {
+        $pull: { favourites: Number(animeId) }
+      },
+      { new: true }
+    );
+    res.status(200).json({
+      success: true,
+      message: "Removed from favourites",
+      user
+    });
+  }
+  catch(err){
+    throw new ApiError(500, "Failed to remove from favourites");
+  }
+}
+
+export { addToFavourites, getFav, removeFav };

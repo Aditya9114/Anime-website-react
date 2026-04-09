@@ -92,6 +92,11 @@ export function AnimeInfo({ anime, id }) {
               {genre.name}
             </span>
           ))}
+          {anime.themes?.map((theme) => (
+            <span className="tag-pill">
+              {theme.name}
+            </span>
+          ))}
         </div>
       </div>
     </div>

@@ -1,0 +1,7 @@
+.airingInfo-container{
+    color:white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 80px;
+}

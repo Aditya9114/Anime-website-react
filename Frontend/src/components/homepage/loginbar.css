@@ -78,3 +78,95 @@
 .menu-btn{
   background-color: #181818;
 }
+/* ... Keep your existing styles above ... */
+
+.login-bar-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end; 
+  padding: 8px 40px; 
+  background-color: rgba(20, 20, 20, 0.7); /* Slightly darker for readability */
+  backdrop-filter: blur(12px); 
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap; /* Allows items to wrap on very small screens */
+  justify-content: flex-end;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+/* TABLET & MOBILE ADJUSTMENTS */
+@media (max-width: 768px) {
+  .login-bar-container {
+    padding: 10px 20px; /* Reduce side padding */
+  }
+
+  .btn {
+    padding: 6px 14px; /* Slightly smaller buttons */
+    font-size: 13px;
+  }
+
+  .username {
+    font-size: 13px;
+  }
+}
+
+/* SMALL MOBILE ADJUSTMENTS */
+@media (max-width: 480px) {
+  .login-bar-container {
+    padding: 8px 12px;
+    justify-content: center; /* Center the bar on tiny screens */
+  }
+
+  .bar {
+    width: 100%;
+    justify-content: space-between; /* Space out username and buttons */
+    gap: 8px;
+  }
+
+  .button-group {
+    gap: 5px;
+  }
+
+  .btn {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  /* Optional: Hide less important text on mobile to save space */
+  .menu-btn {
+    padding: 5px 8px;
+  }
+}
+
+/* TOAST POPUP RESPONSIVENESS */
+.toast-popup {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  min-width: 250px;
+  justify-content: center;
+}

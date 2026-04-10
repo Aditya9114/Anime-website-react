@@ -2,6 +2,7 @@ import "./topairinggrid.css";
 import { Card } from "./Card";
 
 export function TopAiringGrid({ anime }) {
+ 
   return (
     <>
       <div className="titleContainer">

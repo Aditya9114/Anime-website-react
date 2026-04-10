@@ -116,3 +116,38 @@
   padding-bottom: 10px;
   border-bottom: 1px solid #333;
 }
+/* --- RESPONSIVE ADJUSTMENTS --- */
+
+@media (max-width: 600px) {
+  .commentContainer {
+    margin-left: 10px;
+    margin-right: 10px;
+    gap: 12px;
+  }
+
+  /* Stack the form: Input on top, Button on bottom */
+  .commentForm {
+    flex-direction: column;
+    padding: 12px;
+  }
+
+  .btn-submit {
+    padding: 12px; /* Make button taller for easier tapping */
+    width: 100%;
+  }
+
+  /* Stack the username and date for better fit */
+  .commentUsername {
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+  }
+
+  .commentBox {
+    padding: 16px;
+  }
+
+  #reviews {
+    font-size: 22px;
+  }
+}

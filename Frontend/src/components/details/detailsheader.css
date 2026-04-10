@@ -81,3 +81,56 @@
     outline: none;
   }
 }
+.details-nav-bar {
+  width: 100%;
+  height: 60px;
+  padding: 0 20px;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centered for desktop */
+  gap: 40px;
+
+  background-color: #1a1a1a;
+  border-bottom: 1px solid #292929;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  position: sticky; /* Optional: keeps it at the top while scrolling */
+  top: 0;
+  z-index: 1000;
+}
+
+.details-nav-bar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #e0e0e0;
+  transition: color 0.3s ease;
+  white-space: nowrap; /* CRITICAL: prevents text wrapping */
+}
+
+.details-nav-bar button:hover {
+  color: #ffca28;
+}
+
+/* MOBILE ADJUSTMENTS */
+@media (max-width: 768px) {
+  .details-nav-bar {
+    justify-content: flex-start; /* Align left to signify it's a scrollable list */
+    gap: 25px;
+    padding: 0 15px;
+    overflow-x: auto; /* Allows horizontal swipe on small screens */
+    scrollbar-width: none; /* Hides scrollbar for Firefox */
+  }
+
+  .details-nav-bar::-webkit-scrollbar {
+    display: none; /* Hides scrollbar for Chrome/Safari */
+  }
+
+  .details-nav-bar button {
+    font-size: 14px;
+  }
+}

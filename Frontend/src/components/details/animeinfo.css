@@ -181,3 +181,62 @@
     margin-top: 10px;
   }
 }
+/* Update the rating row to wrap buttons */
+.rating-row {
+  display: flex;
+  flex-wrap: wrap; /* CRITICAL: allows buttons to drop to next line */
+  margin-bottom: 20px;
+  gap: 12px; /* Reduced gap slightly for better fit */
+}
+
+/* Ensure buttons don't shrink and look good when stacked */
+.btn-fav {
+  flex: 0 1 auto; /* Allows them to sit side-by-side if there is room */
+  white-space: nowrap; /* Prevents text inside button from wrapping */
+}
+
+/* Mobile Responsiveness Fixes */
+@media (max-width: 768px) {
+  .anime-card-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 20px 10px; /* Smaller margins on mobile */
+  }
+
+  .poster-image {
+    width: 220px; 
+    margin-bottom: 20px;
+  }
+
+  .anime-title {
+    text-align: center;
+    font-size: 1.8rem;
+  }
+
+  /* Center everything in the content area for mobile */
+  .anime-content {
+    align-items: center;
+    text-align: center;
+  }
+
+  .rating-row {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .btn-fav {
+    width: 100%; /* Full width buttons are much better for thumbs */
+    max-width: 300px; /* Prevents them from being comically wide */
+    justify-content: center;
+  }
+
+  .tags-container {
+    justify-content: center; /* Centers the genre pills */
+  }
+
+  .synopsis {
+    max-width: 100%;
+    text-align: left; /* Keep text left-aligned for readability */
+  }
+}

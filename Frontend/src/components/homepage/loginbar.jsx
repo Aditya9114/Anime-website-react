@@ -1,7 +1,7 @@
 import axios from "axios";
 import "./loginbar.css";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react"; // 1️⃣ NEW: Import useState
+import { useState } from "react"; 
 
 export function LoginBar({ user, setUser }) {
   const navigate = useNavigate();

@@ -4,15 +4,27 @@ import { useParams } from "react-router-dom";
 import "./comments.css";
 
 export default function Comments() {
-  // State for the list of comments
   const [data, setData] = useState([]);
-  // State for the new comment input
   const [content, setContent] = useState("");
-  
-  // Gets the anime ID from the URL (Fixes the hardcoded '21' issue)
+  const [uid, setUid] = useState(null);
+
   const { id } = useParams();
 
-  // 1️⃣ Extract the fetch logic into its own function so we can call it multiple times
+  // fetch logged in user
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_API_URL}/api/v1/user/me`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setUid(res.data.data._id);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
+  // fetch comments
   const fetchComments = () => {
     axios
       .get(`${import.meta.env.VITE_API_URL}/api/v1/comments/${id}`, {
@@ -26,12 +38,12 @@ export default function Comments() {
       });
   };
 
-  // 2️⃣ Fetch comments when the component first loads
+  // fetch when page loads
   useEffect(() => {
     fetchComments();
   }, [id]);
 
-  // 3️⃣ Handle the form submission
+  // add comment
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -47,24 +59,21 @@ export default function Comments() {
         }
       );
 
-      // ✅ Clear the input field
-      setContent(""); 
-      
-      // ✅ REFRESH THE COMMENTS LIST INSTANTLY without reloading the page!
-      fetchComments(); 
-
+      setContent("");
+      fetchComments();
     } catch (err) {
-    if (err.response?.status === 401) {
+      if (err.response?.status === 401) {
         alert("Please log in to Comment");
-    }
+      }
       console.error(err);
     }
   };
 
   return (
     <div className="commentContainer">
-     <h1 id="reviews">Reviews</h1>
-      {/* --- THE COMMENT FORM --- */}
+      <h1 id="reviews">Reviews</h1>
+
+      {/* comment form */}
       <form onSubmit={handleSubmit} className="commentForm">
         <input
           type="text"
@@ -73,10 +82,12 @@ export default function Comments() {
           onChange={(e) => setContent(e.target.value)}
           required
         />
-        <button type="submit" className="btn-submit">Post</button>
+        <button type="submit" className="btn-submit">
+          Post
+        </button>
       </form>
 
-      {/* --- THE COMMENTS LIST --- */}
+      {/* comments list */}
       {data.map((d) => {
         return (
           <div key={d._id} className="commentBox">
@@ -84,6 +95,12 @@ export default function Comments() {
               <p>{d.username}</p>
               <p>{new Date(d.createdAt).toDateString()}</p>
             </div>
+
+            {String(d.user) === String(uid) && (
+              <div className="deleteBtn">
+                <button>Delete</button>
+              </div>
+            )}
 
             <div className="commentContent">
               <p>{d.content}</p>

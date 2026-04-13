@@ -1,5 +1,5 @@
 /* General Reset for this component */
-* {
+*{
   box-sizing: border-box;
 }
 
@@ -83,6 +83,11 @@
   color: #cccccc; /* Light grey is easier to read on dark than pure white */
   margin-bottom: 24px;
   max-width: 95%;
+}
+
+.more-info{
+  color: white;
+  margin-bottom: 20px;
 }
 
 /* Tags / Genres */

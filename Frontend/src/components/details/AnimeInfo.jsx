@@ -86,6 +86,11 @@ export function AnimeInfo({ anime, id }) {
 
         {/* Synopsis */}
         <p className="synopsis">{anime.synopsis}</p>
+        <div className="more-info">
+          <p>Episodes Count : {anime.episodes}</p>
+          <p>Rating : {anime.rating}</p>
+          <p>Source : {anime.source}</p>
+        </div>
 
         {/* Tags / Genres */}
         <div className="tags-container">

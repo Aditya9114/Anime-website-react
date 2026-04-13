@@ -10,7 +10,7 @@ export function AiringInfo({ anime }) {
     </div>
   ) : (
     <div className="airingInfo-container">
-      <p>Not airing</p>
+      <h2>Airing Status : Not airing</h2>
     </div>
   );
 }

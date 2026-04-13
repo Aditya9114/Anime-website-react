@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { CardGrid } from "../homepage/CardGrid";
 import { favCache } from "../homepage/cache";
 import axios from "axios";
+import "./menu-btns.css"
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
@@ -49,7 +50,7 @@ export function Grid() {
       } catch (err) {
         console.error("Failed to load favourites", err);
       } finally {
-        setLoading(false); // ✅ always runs, even on error
+        setLoading(false); 
       }
     };
 
@@ -57,6 +58,13 @@ export function Grid() {
   }, []);
 
   if (loading) return <p style={{ color: "white" }}>Loading first time will take some time please remain patient</p>;
-  if (anime.length === 0) return <h1>Your Favourites is Empty</h1>;
+  if (anime.length === 0) return (
+    <div className="empty-container">
+      <img
+      src={`${import.meta.env.BASE_URL}icons/cart.png`}
+      />
+      <h1>Your Favourites is Empty</h1>
+    </div>
+  );
   return <CardGrid anime={anime} title="Favourites" setAnime={setAnime} />;
 }

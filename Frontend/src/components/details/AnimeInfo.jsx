@@ -46,6 +46,7 @@ export function AnimeInfo({ anime, id }) {
                 )
                 .then((res) => {
                   console.log("Result:", res.data);
+                  alert("This anime has been added to your favourites");
                 })
                 .catch((err) => {
                   if (err.response?.status === 401) {
@@ -69,6 +70,7 @@ export function AnimeInfo({ anime, id }) {
                 )
                 .then((res) => {
                   console.log(res.data.message);
+                  alert("This anime has been added to your WatchList")
                 })
                 .catch((err) => {
                   if (err.response?.status === 401) {

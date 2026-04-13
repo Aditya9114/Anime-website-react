@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { CardGrid } from "../homepage/CardGrid";
 import { watchListCache } from "../homepage/cache";
 import axios from "axios";
+import './menu-btns.css'
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
@@ -51,10 +52,19 @@ export function WatchListGrid() {
   }, []);
 
   if (loading === "Completed" && anime.length == 0) {
-    return <h1>Your Watchlist is Empty</h1>;
+    return (
+      <div className="empty-container">
+        <img src={`${import.meta.env.BASE_URL}icons/cart.png`} />
+        <h1>Your WatchList is Empty</h1>
+      </div>
+    );
   } else if (loading === "Completed") {
     return <CardGrid anime={anime} title="WatchList" setAnime={setAnime} />;
   } else {
-    return <p style={{ color: "white" }}>Loading first time will take some time please remain patient</p>;
+    return (
+      <p style={{ color: "white" }}>
+        Loading first time will take some time please remain patient
+      </p>
+    );
   }
 }

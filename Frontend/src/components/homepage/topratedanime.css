@@ -6,3 +6,10 @@
   position: relative;
   z-index: 10; /* important if header has overlays */
 }
+.loading-error{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}

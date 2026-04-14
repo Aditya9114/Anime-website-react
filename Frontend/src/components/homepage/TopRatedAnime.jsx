@@ -5,8 +5,15 @@ import './topratedanime.css'
 
 export function TopRatedAnime({ topAnime }) {
   return (
-    <>
-      <CardGrid anime={topAnime} title="Top 25 Highest-Rated Anime"/>
-    </>
+    topAnime.length == 0 ? 
+    (
+      <div className='loading-error'>
+        <h3>Something went wrong while loading the top anime </h3>
+      </div>
+    ) : (
+      <>
+        <CardGrid anime={topAnime} title="Top 25 Highest-Rated Anime"/>
+      </>
+    )
   );
 }

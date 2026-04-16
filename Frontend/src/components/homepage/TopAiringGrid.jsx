@@ -10,7 +10,7 @@ export function TopAiringGrid({ anime }) {
 
       {!anime || anime.length === 0 ? (
         <div className='loading-error'>
-          <h2 style={{ color: "white" }}>Error in Loading Anime</h2>
+          <h2 style={{ color: "white" }}>Something went wrong while Loading the top airing Anime</h2>
         </div>
       ) : (
         <div className="card-grid">

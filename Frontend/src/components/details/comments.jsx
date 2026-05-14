@@ -69,6 +69,19 @@ export default function Comments() {
     }
   };
 
+  const handleDelete = async(commentId) =>{
+    try{
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/v1/comments/delete/${commentId}`,
+      {
+        withCredentials: true,
+      });
+      fetchComments();
+    }
+    catch(err){
+      console.error(err);
+    }
+  }
+
   return (
     <div className="commentContainer">
       <h1 id="reviews">Reviews</h1>
@@ -98,7 +111,11 @@ export default function Comments() {
 
             {String(d.user) === String(uid) && (
               <div className="deleteBtn">
-                <button>Delete</button>
+                <button
+                  onClick={()=>{
+                    handleDelete(d._id)
+                  }}
+                >Delete</button>
               </div>
             )}
 

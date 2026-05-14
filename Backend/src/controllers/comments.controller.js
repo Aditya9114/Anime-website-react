@@ -56,4 +56,28 @@ const addComment = async (req, res) => {
   }
 };
 
-export { getComments, addComment};
+const deleteComment = async(req,res)=>{
+
+    const comment = await Comments.findById(req.params.id);
+    if (!comment) {
+    return res.status(404).json({
+      message: "Comment not found",
+    });
+  }
+
+  // security check
+  if (String(comment.user) !== String(req.user._id)) {
+    return res.status(403).json({
+      message: "Unauthorized",
+    });
+  }
+
+  await Comments.findByIdAndDelete(req.params.id);
+
+  res.status(200).json({
+    message: "Comment deleted",
+  });
+  
+}
+
+export { getComments, addComment, deleteComment};

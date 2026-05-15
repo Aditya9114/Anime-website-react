@@ -1,19 +1,19 @@
 /* Floating, translucent container blending into the header background */
 .login-bar-container {
-  position: absolute;
+  position: fixed; /* Make it sticky */
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 1000;
   box-sizing: border-box;
   display: flex;
   justify-content: flex-end; 
-  padding: 8px 40px; 
-  background-color: rgba(20, 20, 20, 0.5); /* Semi-transparent cinematic black */
-  backdrop-filter: blur(8px); 
-  -webkit-backdrop-filter: blur(8px); /* Safari support */
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  padding: 12px 40px; 
+  background-color: rgba(20, 20, 20, 0.7); /* Dark semi-transparent */
+  backdrop-filter: blur(12px); 
+  -webkit-backdrop-filter: blur(12px); /* Safari support */
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
 }
 
 /* Flexbox layout for the items inside the bar */
@@ -21,12 +21,14 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 /* User's name styling */
 .username {
   font-size: 15px;
-  color: #ffffff; 
+  color: var(--text-primary, #ffffff); 
   font-weight: 500;
   letter-spacing: 0.5px;
   margin-right: 8px;
@@ -35,72 +37,56 @@
 /* Universal Button Styles */
 .btn {
   padding: 8px 20px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
-  border-radius: 4px; /* Sharper corners fit the dark/media aesthetic better */
+  border-radius: 6px; /* Slightly more rounded */
   cursor: pointer;
   transition: all 0.2s ease;
   border: 1px solid transparent;
-  color: #ffffff; /* White text for all buttons in dark mode */
+  color: var(--text-primary, #ffffff); 
 }
 
 /* Primary Action Button (Sign Up) */
 .btn-primary {
-  background-color: #e50914; /* Signature Red */
+  background-color: var(--accent-red, #e50914); 
 }
 
 .btn-primary:hover {
-  background-color: #f40612; /* Slightly brighter red on hover */
-  transform: scale(1.05); /* Slight pop out effect */
+  background-color: var(--accent-red-hover, #f40612); 
+  transform: translateY(-2px); 
+  box-shadow: 0 4px 12px rgba(229, 9, 20, 0.3);
 }
 
 /* Secondary Action Button (Login) */
 .btn-outline {
-  background-color: #181818; /* Darkest gray */
-  border: 1px solid #333; /* Dark gray border */
+  background-color: rgba(255, 255, 255, 0.05); 
+  border: 1px solid rgba(255, 255, 255, 0.1); 
 }
 
 .btn-outline:hover {
-  background-color: #333; /* Lighter gray on hover */
-  border-color: #e50914; /* Subtle red border glow on hover */
+  background-color: rgba(255, 255, 255, 0.1); 
+  border-color: var(--accent-red, #e50914); 
 }
 
 /* Destructive/Logout Button */
 .btn-logout {
-  background-color: #181818;
-  border: 1px solid #333;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .btn-logout:hover {
-  background-color: #e50914; /* Fills with red on hover to indicate destructive action */
-  border-color: #e50914;
-}
-.menu-btn{
-  background-color: #181818;
-}
-/* ... Keep your existing styles above ... */
-
-.login-bar-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 100;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: flex-end; 
-  padding: 8px 40px; 
-  background-color: rgba(20, 20, 20, 0.7); /* Slightly darker for readability */
-  backdrop-filter: blur(12px); 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--accent-red, #e50914);
+  border-color: var(--accent-red, #e50914);
 }
 
-.bar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap; /* Allows items to wrap on very small screens */
-  justify-content: flex-end;
+.menu-btn {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.menu-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--text-secondary, #aaa);
 }
 
 .button-group {
@@ -111,11 +97,11 @@
 /* TABLET & MOBILE ADJUSTMENTS */
 @media (max-width: 768px) {
   .login-bar-container {
-    padding: 10px 20px; /* Reduce side padding */
+    padding: 10px 20px; 
   }
 
   .btn {
-    padding: 6px 14px; /* Slightly smaller buttons */
+    padding: 6px 14px; 
     font-size: 13px;
   }
 
@@ -128,12 +114,12 @@
 @media (max-width: 480px) {
   .login-bar-container {
     padding: 8px 12px;
-    justify-content: center; /* Center the bar on tiny screens */
+    justify-content: center; 
   }
 
   .bar {
     width: 100%;
-    justify-content: space-between; /* Space out username and buttons */
+    justify-content: space-between; 
     gap: 8px;
   }
 
@@ -146,7 +132,6 @@
     font-size: 12px;
   }
 
-  /* Optional: Hide less important text on mobile to save space */
   .menu-btn {
     padding: 5px 8px;
   }
@@ -155,18 +140,19 @@
 /* TOAST POPUP RESPONSIVENESS */
 .toast-popup {
   position: fixed;
-  top: 20px;
+  top: 80px; /* moved down to avoid sticky header */
   left: 50%;
   transform: translateX(-50%);
-  background: #333;
+  background: var(--card-bg, #181818);
   color: white;
   padding: 12px 24px;
   border-radius: 8px;
   display: flex;
   align-items: center;
   gap: 10px;
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  z-index: 1100;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.1);
   min-width: 250px;
   justify-content: center;
 }

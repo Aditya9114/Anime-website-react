@@ -79,9 +79,6 @@ export function HomePage() {
     <>
       <LoginBar user={user} setUser={setUser} />
       <Header />
-      <section className="search-section">
-        <SearchBar />
-      </section>
       <TopAiringGrid anime={anime} />
       <TopRatedAnime topAnime={topAnime} />
     </>

@@ -3,7 +3,7 @@ import { TopRatedAnime } from "./TopRatedAnime";
 import { Header } from "./Header.jsx";
 import { LoginBar } from "./loginbar.jsx";
 import { SearchBar } from "./SearchBar.jsx";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { animeCache } from "./cache.js";
 import axios from "axios";
 

@@ -9,6 +9,7 @@ import Comments from "./comments";
 import { Studio } from "./Studio";
 import { Recommendations } from "./Recommendations";
 import { AiringInfo } from "./AiringInfo";
+import { AvailableInfo } from './AvailableInfo';
 import axios from "axios";
 
 
@@ -67,6 +68,7 @@ useEffect(() => {
       <Media anime={anime}></Media>
       <DetailsHeader></DetailsHeader>
       <AnimeInfo anime={anime} id={id}></AnimeInfo>
+      <AvailableInfo id={id}></AvailableInfo>
       <AiringInfo anime={anime}></AiringInfo>
       <Characters id={id}></Characters>
       <Studio anime={anime}></Studio>

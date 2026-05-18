@@ -1,0 +1,15 @@
+.logos img{
+    height: 65px;
+    margin-right: 50px;
+}
+.logoContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+.logoContainer p{
+    font-size: 30px;
+    font-weight: 700;
+    font-family: 'Poppins';
+}

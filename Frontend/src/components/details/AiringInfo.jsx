@@ -1,5 +1,6 @@
 import './airingInfo.css'
 
+
 export function AiringInfo({ anime }) {
   if (!anime) return null;
 

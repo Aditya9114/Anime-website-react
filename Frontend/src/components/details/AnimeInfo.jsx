@@ -1,6 +1,7 @@
 import "./animeinfo.css";
 import axios from "axios";
 
+
 export function AnimeInfo({ anime, id }) {
   // If no data, don't render anything (cleaner than checking everywhere)
   if (!anime) return null;
@@ -107,5 +108,6 @@ export function AnimeInfo({ anime, id }) {
         </div>
       </div>
     </div>
+    
   );
 }

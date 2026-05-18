@@ -44,7 +44,7 @@
     height: 40px;
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 10px;
     /* Reduced since it's now inside the hero */
   }
 

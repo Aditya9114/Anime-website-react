@@ -13,3 +13,22 @@
     font-weight: 700;
     font-family: 'Poppins';
 }
+/* Mobile Responsive CSS */
+@media (max-width: 768px) {
+
+    .logos img{
+        height: 45px;
+        margin-right: 20px;
+    }
+
+    .logoContainer{
+        gap: 15px;
+        padding: 10px;
+    }
+
+    .logoContainer p{
+        font-size: 22px;
+        text-align: center;
+    }
+
+}

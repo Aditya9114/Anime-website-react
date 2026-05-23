@@ -4,6 +4,8 @@ import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
+import { access } from "fs";
+import jwt from "jsonwebtoken";
 
 const generateAccessAndRefreshToken = async (userId) => {
   try {
@@ -157,5 +159,59 @@ const logoutUser = async (req, res) => {
     throw err;
   }
 };
+const refreshAccessToken = async (req, res) => {
+  try {
+    console.log(req.cookies);
+    console.log(req.cookies?.refreshToken);
+    const refreshTokenOld = req.cookies?.refreshToken;
 
-export { registerUser, loginUser, logoutUser };
+    if (!refreshTokenOld) {
+      throw new ApiError(401, "Unauthorized request");
+    }
+
+    const decodedToken = jwt.verify(
+      refreshTokenOld,
+      process.env.REFRESH_TOKEN_SECRET
+    );
+
+    const user = await User.findById(decodedToken?._id).select(
+      "-password -emailVerificationToken -emailVerificationExpiry"
+    );
+
+    if (!user) {
+      throw new ApiError(401, "Invalid refresh token");
+    }
+
+    const dbRefreshToken = user.refreshToken;
+
+    if (refreshTokenOld !== dbRefreshToken) {
+      throw new ApiError(401, "Refresh token expired or invalid");
+    }
+
+    const newAccessToken = user.generateAccessToken();
+
+    const options = {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    };
+
+    return res
+      .status(200)
+      .cookie("accessToken", newAccessToken, options)
+      .json({
+        success: true,
+        message: "Access token refreshed",
+      });
+
+  } catch (err) {
+    console.log(err);
+
+    return res.status(401).json({
+      success: false,
+      message: "Invalid or expired refresh token",
+    });
+  }
+};
+
+export { registerUser, loginUser, logoutUser, refreshAccessToken };

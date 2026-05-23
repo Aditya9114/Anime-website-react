@@ -60,31 +60,71 @@ export function LoginBar({ user, setUser }) {
                 console.log(res.data.data);
                  navigate("favourites")
               })
-              .catch((err)=>{
-                console.log(err);
-                alert("Something went wrong")
-              })
+              .catch(async (err) => {
+  if (err.response?.status === 401) {
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/v1/auth/refresh-token`,
+        {},
+        { withCredentials: true }
+      );
+
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/v1/favourites/list`,
+        { withCredentials: true }
+      );
+      console.log(res.data.data);
+      navigate("favourites");
+
+    } catch (refreshErr) {
+      alert("Session expired. Please login again.");
+    }
+  } else {
+    console.log(err);
+    alert("Something went wrong");
+  }
+})
             }}
           >
             Favourites
           </button>
           <button
-            className="btn menu-btn"
-            onClick={() => {
-              axios.get(
-                `${import.meta.env.VITE_API_URL}/api/v1/watchlist/list`,
-                { withCredentials: true },
-              )
-              .then((res)=>{
-                console.log(res.data.data);
-                navigate("watchlist")
-              })
-              .catch((err)=>{
-                console.log(err);
-                alert("Something went wrong")
-              })
-            }}
-          >
+  className="btn menu-btn"
+  onClick={async () => {
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/v1/watchlist/list`,
+        { withCredentials: true }
+      );
+      console.log(res.data.data);
+      navigate("watchlist");
+
+    } catch (err) {
+      if (err.response?.status === 401) {
+        try {
+          await axios.post(
+            `${import.meta.env.VITE_API_URL}/api/v1/auth/refresh-token`,
+            {},
+            { withCredentials: true }
+          );
+
+          // Retry original request
+          const res = await axios.get(
+            `${import.meta.env.VITE_API_URL}/api/v1/watchlist/list`,
+            { withCredentials: true }
+          );
+          console.log(res.data.data);
+          navigate("watchlist");
+
+        } catch (refreshErr) {
+          alert("Session expired. Please login again.");
+        }
+      } else {
+        alert("Something went wrong");
+      }
+    }
+  }}
+>
             WatchList
           </button>
         </div>

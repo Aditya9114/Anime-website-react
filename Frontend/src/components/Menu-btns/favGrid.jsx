@@ -28,36 +28,112 @@ export function Grid() {
 
     favCache.favourites = collected;
   }
+useEffect(() => {
+  const load = async (retry = true) => {
+    console.log("LOAD FUNCTION CALLED");
 
-  useEffect(() => {
-    const load = async () => {
-      try {
-        const res = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/v1/favourites/list`,
-          { withCredentials: true }
-        );
+    try {
+      console.log("Sending favourites request...");
 
-        const ids = res.data.data;
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/v1/favourites/list`,
+        { withCredentials: true }
+      );
 
-        if (favCache.favourites.length !== ids.length) {
-          console.log("Fetching from API");
-          setAnime([]);
-          await fetchAnime(ids);
-        } else {
-          console.log("Got from cache");
-          setAnime(favCache.favourites);
-        }
-      } catch (err) {
-        console.error("Failed to load favourites", err);
-      } finally {
-        setLoading(false); 
+      console.log("FAVOURITES SUCCESS");
+      console.log(res);
+
+      const ids = res.data.data;
+
+      if (favCache.favourites.length !== ids.length) {
+        console.log("Fetching from API");
+        setAnime([]);
+        await fetchAnime(ids);
+      } else {
+        console.log("Got from cache");
+        setAnime(favCache.favourites);
       }
-    };
 
-    load();
-  }, []);
+    } catch (err) {
 
-  if (loading) return <p style={{ color: "white" }}>Loading first time will take some time please remain patient</p>;
+      console.log("===== ERROR CAUGHT =====");
+      console.log("FULL ERROR:", err);
+      console.log("RESPONSE:", err.response);
+      console.log("STATUS:", err.response?.status);
+      console.log("DATA:", err.response?.data);
+
+      if (err.response?.status === 401 && retry) {
+
+        console.log("401 DETECTED");
+        console.log("TRYING REFRESH TOKEN");
+
+        try {
+
+          const refreshRes = await axios.post(
+            `${import.meta.env.VITE_API_URL}/api/v1/auth/refresh-token`,
+            {},
+            { withCredentials: true }
+          );
+
+          console.log("REFRESH SUCCESS");
+          console.log(refreshRes);
+
+          console.log("RETRYING ORIGINAL REQUEST");
+
+          return await load(false);
+
+        } catch (refreshErr) {
+
+          console.log("===== REFRESH FAILED =====");
+          console.log("FULL REFRESH ERROR:", refreshErr);
+          console.log("RESPONSE:", refreshErr.response);
+          console.log("STATUS:", refreshErr.response?.status);
+          console.log("DATA:", refreshErr.response?.data);
+
+          try {
+
+            console.log("TRYING LOGOUT");
+
+            const logoutRes = await axios.post(
+              `${import.meta.env.VITE_API_URL}/api/v1/auth/logout`,
+              {},
+              { withCredentials: true }
+            );
+
+            console.log("LOGOUT SUCCESS");
+            console.log(logoutRes);
+
+          } catch (logoutErr) {
+
+            console.log("===== LOGOUT FAILED =====");
+            console.log(logoutErr);
+
+          }
+
+          alert("Refresh token expired. Login again.");
+        }
+      }
+
+      console.log("FAILED TO LOAD FAVOURITES");
+    }
+  };
+
+  const fetchData = async () => {
+    console.log("FETCH DATA STARTED");
+
+    setLoading(true);
+
+    await load();
+
+    setLoading(false);
+
+    console.log("FETCH DATA FINISHED");
+  };
+
+  fetchData();
+
+}, []);  
+if (loading) return <p style={{ color: "white" }}>Loading first time will take some time please remain patient</p>;
   if (anime.length === 0) return (
     <div className="empty-container">
       <img

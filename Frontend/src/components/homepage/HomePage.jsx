@@ -14,17 +14,62 @@ export function HomePage() {
 
   // get logged in user
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/api/v1/user/me`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setUser(res.data.data);
-      })
-      .catch(() => {
-        console.log("Not logged in");
-      });
-  }, []);
+
+  const getUser = async (retry = true) => {
+    try {
+
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/v1/user/me`,
+        {
+          withCredentials: true,
+        }
+      );
+
+      console.log("USER FETCH SUCCESS");
+
+      setUser(res.data.data);
+
+    } catch (err) {
+
+      console.log("USER FETCH FAILED");
+      console.log(err.response?.status);
+
+      if (err.response?.status === 401 && retry) {
+
+        console.log("TRYING TO REFRESH ACCESS TOKEN");
+
+        try {
+
+          await axios.post(
+            `${import.meta.env.VITE_API_URL}/api/v1/auth/refresh-token`,
+            {},
+            {
+              withCredentials: true,
+            }
+          );
+
+          console.log("ACCESS TOKEN REFRESHED");
+
+          return await getUser(false);
+
+        } catch (refreshErr) {
+
+          console.log("REFRESH TOKEN EXPIRED");
+          console.log(refreshErr);
+
+          setUser(null);
+
+          // optionally navigate to login page
+        }
+      }
+
+      console.log("Not logged in");
+    }
+  };
+
+  getUser();
+
+}, []);
 
   // Top Rated Anime (animeCached)
   useEffect(() => {

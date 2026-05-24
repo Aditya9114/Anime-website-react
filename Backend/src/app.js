@@ -21,7 +21,7 @@ app.use(
   })
 );
 app.use(cookieParser());
-app.use(express.json());         // parse JSON request bodies
+app.use(express.json());         
 app.use(express.urlencoded({ extended: true })); // parse form data
 app.use("/api/v1/auth",authRouter)
 app.use("/api/v1/user", userRouter);

@@ -78,6 +78,7 @@ export function LoginBar({ user, setUser }) {
 
     } catch (refreshErr) {
       alert("Session expired. Please login again.");
+      console.log(refreshErr)
     }
   } else {
     console.log(err);
@@ -118,6 +119,7 @@ export function LoginBar({ user, setUser }) {
 
         } catch (refreshErr) {
           alert("Session expired. Please login again.");
+          console.log(refreshErr)
         }
       } else {
         alert("Something went wrong");

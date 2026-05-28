@@ -2,27 +2,44 @@ import { useEffect, useState } from "react";
 import { CardGrid } from "../homepage/CardGrid";
 import { watchListCache } from "../homepage/cache";
 import axios from "axios";
-import './menu-btns.css'
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 async function fetchAnime(ids, setAnime) {
+  const BATCH_SIZE = 3;
+  const BATCH_DELAY = 1100;
   const collected = [];
-  for (let i = 0; i < ids.length; i++) {
-    try {
-      const res = await axios.get(`https://api.jikan.moe/v4/anime/${ids[i]}`);
 
-      setAnime((prev) => [...prev, res.data.data]);
-      collected.push(res.data.data);
+  for (let i = 0; i < ids.length; i += BATCH_SIZE) {
+    const batch = ids.slice(i, i + BATCH_SIZE);
 
-      // await delay(300); // SAFE rate
-    } catch (err) {
-      if (err.response?.status === 429) {
-        await delay(1500); // backoff
-        i--; // retry same id
-      }
-    }
+    const results = await Promise.all(
+      batch.map(async (id) => {
+        try {
+          const res = await axios.get(`https://api.jikan.moe/v4/anime/${id}`);
+          return res.data.data;
+        } catch (err) {
+          if (err.response?.status === 429) {
+            await delay(1500);
+            try {
+              const retry = await axios.get(`https://api.jikan.moe/v4/anime/${id}`);
+              return retry.data.data;
+            } catch {
+              return null;
+            }
+          }
+          return null;
+        }
+      })
+    );
+
+    const valid = results.filter(Boolean);
+    collected.push(...valid);
+    setAnime((prev) => [...prev, ...valid]);
+
+    if (i + BATCH_SIZE < ids.length) await delay(BATCH_DELAY);
   }
+
   watchListCache.watchlist = collected;
 }
 
@@ -34,15 +51,13 @@ export function WatchListGrid() {
     const load = async () => {
       const res = await axios.get(
         `${import.meta.env.VITE_API_URL}/api/v1/watchlist/list`,
-        { withCredentials: true },
+        { withCredentials: true }
       );
 
       const ids = res.data.data;
       if (watchListCache.watchlist.length !== ids.length) {
-        console.log("Fetching from API");
         await fetchAnime(ids, setAnime);
       } else {
-        console.log("Got from cache", watchListCache.watchlist);
         setAnime(watchListCache.watchlist);
       }
       setLoading("Completed");
@@ -51,7 +66,7 @@ export function WatchListGrid() {
     load();
   }, []);
 
-  if (loading === "Completed" && anime.length == 0) {
+  if (loading === "Completed" && anime.length === 0) {
     return (
       <div className="empty-container">
         <img src={`${import.meta.env.BASE_URL}icons/cart.png`} />

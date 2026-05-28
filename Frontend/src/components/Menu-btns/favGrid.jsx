@@ -2,143 +2,104 @@ import { useEffect, useState } from "react";
 import { CardGrid } from "../homepage/CardGrid";
 import { favCache } from "../homepage/cache";
 import axios from "axios";
-import "./menu-btns.css"
+import "./menu-btns.css";
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+
+async function fetchAnime(ids, setAnime) {
+  const BATCH_SIZE = 2;
+  const BATCH_DELAY = 1500;
+  const collected = [];
+
+  for (let i = 0; i < ids.length; i += BATCH_SIZE) {
+    const batch = ids.slice(i, i + BATCH_SIZE);
+
+    const results = await Promise.all(
+      batch.map(async (id) => {
+        try {
+          const res = await axios.get(`https://api.jikan.moe/v4/anime/${id}`);
+          return res.data.data;
+        } catch (err) {
+          if (err.response?.status === 429) {
+            await delay(2000);
+            try {
+              const retry = await axios.get(`https://api.jikan.moe/v4/anime/${id}`);
+              return retry.data.data;
+            } catch {
+              return null;
+            }
+          }
+          return null;
+        }
+      })
+    );
+
+    const valid = results.filter(Boolean);
+    collected.push(...valid);
+    setAnime((prev) => [...prev, ...valid]);
+
+    if (i + BATCH_SIZE < ids.length) await delay(BATCH_DELAY);
+  }
+
+  favCache.favourites = collected;
+}
 
 export function Grid() {
   const [anime, setAnime] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  async function fetchAnime(ids) {
-    const collected = [];
-
-    for (let i = 0; i < ids.length; i++) {
+  useEffect(() => {
+    const load = async (retry = true) => {
       try {
-        const res = await axios.get(`https://api.jikan.moe/v4/anime/${ids[i]}`);
-        collected.push(res.data.data);
-        setAnime((prev) => [...prev, res.data.data]);
-      } catch (err) {
-        if (err.response?.status === 429) {
-          await delay(1500);
-          i--;
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/v1/favourites/list`,
+          { withCredentials: true }
+        );
+
+        const ids = res.data.data;
+
+        if (favCache.favourites.length !== ids.length) {
+          setAnime([]);
+          await fetchAnime(ids, setAnime);
+        } else {
+          setAnime(favCache.favourites);
         }
-      }
-    }
-
-    favCache.favourites = collected;
-  }
-useEffect(() => {
-  const load = async (retry = true) => {
-    console.log("LOAD FUNCTION CALLED");
-
-    try {
-      console.log("Sending favourites request...");
-
-      const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/v1/favourites/list`,
-        { withCredentials: true }
-      );
-
-      console.log("FAVOURITES SUCCESS");
-      console.log(res);
-
-      const ids = res.data.data;
-
-      if (favCache.favourites.length !== ids.length) {
-        console.log("Fetching from API");
-        setAnime([]);
-        await fetchAnime(ids);
-      } else {
-        console.log("Got from cache");
-        setAnime(favCache.favourites);
-      }
-
-    } catch (err) {
-
-      console.log("===== ERROR CAUGHT =====");
-      console.log("FULL ERROR:", err);
-      console.log("RESPONSE:", err.response);
-      console.log("STATUS:", err.response?.status);
-      console.log("DATA:", err.response?.data);
-
-      if (err.response?.status === 401 && retry) {
-
-        console.log("401 DETECTED");
-        console.log("TRYING REFRESH TOKEN");
-
-        try {
-
-          const refreshRes = await axios.post(
-            `${import.meta.env.VITE_API_URL}/api/v1/auth/refresh-token`,
-            {},
-            { withCredentials: true }
-          );
-
-          console.log("REFRESH SUCCESS");
-          console.log(refreshRes);
-
-          console.log("RETRYING ORIGINAL REQUEST");
-
-          return await load(false);
-
-        } catch (refreshErr) {
-
-          console.log("===== REFRESH FAILED =====");
-          console.log("FULL REFRESH ERROR:", refreshErr);
-          console.log("RESPONSE:", refreshErr.response);
-          console.log("STATUS:", refreshErr.response?.status);
-          console.log("DATA:", refreshErr.response?.data);
-
+      } catch (err) {
+        if (err.response?.status === 401 && retry) {
           try {
-
-            console.log("TRYING LOGOUT");
-
-            const logoutRes = await axios.post(
-              `${import.meta.env.VITE_API_URL}/api/v1/auth/logout`,
+            await axios.post(
+              `${import.meta.env.VITE_API_URL}/api/v1/auth/refresh-token`,
               {},
               { withCredentials: true }
             );
-
-            console.log("LOGOUT SUCCESS");
-            console.log(logoutRes);
-
-          } catch (logoutErr) {
-
-            console.log("===== LOGOUT FAILED =====");
-            console.log(logoutErr);
-
+            return await load(false);
+          } catch {
+            try {
+              await axios.post(
+                `${import.meta.env.VITE_API_URL}/api/v1/auth/logout`,
+                {},
+                { withCredentials: true }
+              );
+            } catch { console.log("error")}
+            alert("Refresh token expired. Login again.");
           }
-
-          alert("Refresh token expired. Login again.");
         }
       }
+    };
 
-      console.log("FAILED TO LOAD FAVOURITES");
-    }
-  };
+    const fetchData = async () => {
+      setLoading(true);
+      await load();
+      setLoading(false);
+    };
 
-  const fetchData = async () => {
-    console.log("FETCH DATA STARTED");
+    fetchData();
+  }, []);
 
-    setLoading(true);
-
-    await load();
-
-    setLoading(false);
-
-    console.log("FETCH DATA FINISHED");
-  };
-
-  fetchData();
-
-}, []);  
-if (loading) return <p style={{ color: "white" }}>Loading first time will take some time please remain patient</p>;
+  if (loading) return <p style={{ color: "white" }}>Loading first time will take some time please remain patient</p>;
   if (anime.length === 0) return (
     <div className="empty-container">
-      <img
-      src={`${import.meta.env.BASE_URL}icons/cart.png`}
-      />
+      <img src={`${import.meta.env.BASE_URL}icons/cart.png`} />
       <h1>Your Favourites is Empty</h1>
     </div>
   );

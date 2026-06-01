@@ -28,8 +28,8 @@ const getComments = async (req, res) => {
 
 const addComment = async (req, res) => {
   try {
-    console.log("USER:", req.user);   // ✅ ADD HERE
-    console.log("BODY:", req.body);   // (optional but useful)
+    console.log("USER:", req.user);  
+    console.log("BODY:", req.body);  
 
     const { animeId, content } = req.body;
 

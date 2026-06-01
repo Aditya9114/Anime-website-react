@@ -26,7 +26,6 @@ function App() {
       <Route path="/All-Characters/:id" element={<AllCharacters />}></Route>
       <Route path="/login" element={<Login isLogin={true} />} />
       <Route path="/register" element={<Login isLogin={false} />} />
-      {/* <Route path="/comments" element={<CommentForm/>} /> */}
       <Route path="/favourites" element={<Grid />} />
       <Route path="/watchlist" element={<WatchListGrid />} />
     </Routes>

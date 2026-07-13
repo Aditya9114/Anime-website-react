@@ -28,6 +28,7 @@ export function SearchBar() {
       }
     } catch (err) {
       console.error(err);
+      alert("An error has occured while fetching the required data please try again later");
     }
   }
 

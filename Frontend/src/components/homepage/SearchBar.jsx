@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { searchAnime } from "../../services/anilist.js";
 import "./searchbar.css";
 
 export function SearchBar() {
@@ -9,26 +9,19 @@ export function SearchBar() {
   async function handleSearch(e) {
     if (e.key !== "Enter") return;
     if (!query.trim()) return;
-    const isMovieSearch = query.toLowerCase().includes("movie");
     try {
-      const res = await axios.get("https://api.jikan.moe/v4/anime", {
-        params: {
-          q: query,
-          limit: 1,
-          type: isMovieSearch ? "movie" : "tv",
-        },
-      });
-
-      const anime = res.data.data[0];
+      const results = await searchAnime(query);
+      const anime = results[0];
 
       if (anime) {
-        navigate(`/details/${anime.mal_id}`);
+        if (anime.idMal) navigate(`/details/${anime.idMal}`);
+        else alert("This anime has no MyAnimeList ID, so it cannot open from a MAL-based URL.");
       } else {
         alert("No anime found 😢");
       }
     } catch (err) {
       console.error(err);
-      alert("An error has occured while fetching the required data please try again later");
+      alert("An error occurred while searching. Please try again later.");
     }
   }
 

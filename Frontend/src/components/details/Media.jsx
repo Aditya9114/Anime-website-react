@@ -1,76 +1,38 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
 import "./media.css";
 
-const YT_KEY = import.meta.env.VITE_YT_API_KEY;
+function getTrailerUrl(trailer) {
+  if (!trailer?.id || !trailer?.site) return null;
+
+  const id = encodeURIComponent(trailer.id);
+  if (trailer.site.toLowerCase() === "youtube") {
+    return `https://www.youtube-nocookie.com/embed/${id}`;
+  }
+  if (trailer.site.toLowerCase() === "dailymotion") {
+    return `https://www.dailymotion.com/embed/video/${id}`;
+  }
+  return null;
+}
 
 export function Media({ anime }) {
-  const [trailerUrl, setTrailerUrl] = useState(null);
-
-  useEffect(() => {
-    if (!anime) return;
-
-    async function fetchTrailer() {
-      try {
-        // ✅ 1. Try Jikan trailer FIRST
-        if (anime.trailer?.embed_url) {
-          setTrailerUrl(anime.trailer.embed_url);
-          return;
-        }
-
-        // 🔁 2. Fallback to YouTube only if Jikan doesn't have it
-        const query = `${anime.title_english || anime.title} anime official trailer`;
-        await new Promise(r => setTimeout(r, 400));
-
-        const res = await axios.get(
-          "https://www.googleapis.com/youtube/v3/search",
-          {
-            params: {
-              part: "snippet",
-              q: query,
-              key: YT_KEY,
-              maxResults: 1,
-              type: "video",
-            },
-          }
-        );
-
-        const ytVideoId = res.data.items[0]?.id?.videoId;
-
-        if (ytVideoId) {
-          setTrailerUrl(`https://www.youtube.com/embed/${ytVideoId}`);
-          return;
-        }
-
-        // ❌ Nothing found
-        setTrailerUrl(null);
-
-      } catch (err) {
-        console.error("Trailer fetch failed", err);
-        setTrailerUrl(null);
-      }
-    }
-
-    fetchTrailer();
-  }, [anime]);
-
   if (!anime) {
     return <p style={{ color: "white" }}>Loading anime…</p>;
   }
+
+  const trailerUrl = getTrailerUrl(anime.trailer);
+  const title = anime.title?.english || anime.title?.romaji || "Anime trailer";
 
   return (
     <div className="mediaContainer">
       {trailerUrl ? (
         <iframe
           src={trailerUrl}
-          title={anime.title}
-          allow="encrypted-media"
+          title={`${title} trailer`}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
           allowFullScreen
         />
       ) : (
-        <p style={{ color: "white" }}>
-          Trailer not available 😕
-        </p>
+        <p style={{ color: "white" }}>Trailer not available for this anime.</p>
       )}
     </div>
   );

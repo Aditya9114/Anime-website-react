@@ -1,79 +1,50 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getAnimeByMalId } from "../../services/anilist.js";
 import { AnimeInfo } from "./AnimeInfo";
 import { Media } from "./Media";
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { Characters } from "./Characters";
-import { CharacterCard } from "./CharacterCard";
 import { DetailsHeader } from "./DetailsHeader";
 import Comments from "./comments";
 import { Studio } from "./Studio";
 import { Recommendations } from "./Recommendations";
 import { AiringInfo } from "./AiringInfo";
-import { AvailableInfo } from './AvailableInfo';
-import axios from "axios";
-
-
+import { AvailableInfo } from "./AvailableInfo";
 
 export function Details() {
   const { id } = useParams();
   const [anime, setAnime] = useState(null);
-//   useEffect(() => {
-//   if (!topAnime.length && !airingAnime.length) return;
-
-//   const animeId = Number(id);
-
-//   const foundInTop =
-//     topAnime.find((a) => a.mal_id === animeId);
-
-//   if (foundInTop) {
-//     setAnime(foundInTop);
-//     return;
-//   }
-
-//   const foundInAiring =
-//     airingAnime.find((a) => a.mal_id === animeId);
-
-//   setAnime(foundInAiring || null);
-// }, [topAnime, airingAnime, id]);
-
-useEffect(() => {
-  window.scrollTo({
-    top: 0,
-    left: 0,
-    behavior: "instant" // or "smooth" if you like
-  });
-}, [id]);
-
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-  if (!id) return;
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    if (!id) return;
+    setAnime(null);
+    setError(false);
+    getAnimeByMalId(id)
+      .then((result) => {
+        if (!result) throw new Error("No AniList entry has this MAL ID");
+        setAnime(result);
+      })
+      .catch((err) => {
+        console.error("Anime details request failed", err);
+        setError(true);
+      });
+  }, [id]);
 
-  setAnime(null); // 🔥 ADD THIS LINE
-  axios
-    .get(`https://api.jikan.moe/v4/anime/${id}`)
-    .then((res) => {
-      setAnime(res.data.data);
-    })
-    .catch(console.error);
-}, [id]);
-
-
-
-  useEffect(() => {
-    console.log(anime);
-  }, [anime]);
+  if (error) return <p style={{ color: "white" }}>Anime not found or temporarily unavailable.</p>;
 
   return (
     <>
-      <Media anime={anime}></Media>
-      <DetailsHeader></DetailsHeader>
-      <AnimeInfo anime={anime} id={id}></AnimeInfo>
-      <AvailableInfo id={id}></AvailableInfo>
-      <AiringInfo anime={anime}></AiringInfo>
-      <Characters id={id}></Characters>
-      <Studio anime={anime}></Studio>
-      <Comments></Comments>
-      <Recommendations id={id}></Recommendations>
+      <Media anime={anime} />
+      <DetailsHeader />
+      <AnimeInfo anime={anime} id={id} />
+      <AvailableInfo anime={anime} />
+      <AiringInfo anime={anime} />
+      <Characters anime={anime} />
+      <Studio anime={anime} />
+      <Comments />
+      <Recommendations anime={anime} />
     </>
   );
 }

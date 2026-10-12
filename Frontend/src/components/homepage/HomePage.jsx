@@ -6,6 +6,7 @@ import { SearchBar } from "./SearchBar.jsx";
 import { useState, useEffect } from "react";
 import { animeCache } from "./cache.js";
 import axios from "axios";
+import { getAiringAnime, getTopAnime } from "../../services/anilist.js";
 
 export function HomePage() {
   const [anime, setAnime] = useState([]);
@@ -81,13 +82,12 @@ export function HomePage() {
 
     console.log("TOP ANIME FROM API");
 
-    axios
-      .get("https://api.jikan.moe/v4/top/anime")
-      .then((res) => {
-        setTopAnime(res.data.data);
-        animeCache.topAnime = res.data.data;
+    getTopAnime()
+      .then((results) => {
+        setTopAnime(results);
+        animeCache.topAnime = results;
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error("Top anime request failed", err));
   }, []);
 
   // Top Airing Anime (animeCached)
@@ -101,16 +101,9 @@ export function HomePage() {
 
       console.log("AIRING FROM API");
 
-      const res = await axios.get("https://api.jikan.moe/v4/top/anime", {
-        params: {
-          filter: "airing",
-          type: "tv",
-          limit: 10,
-        },
-      });
-
-      setAnime(res.data.data);
-      animeCache.airingAnime = res.data.data;
+      const results = await getAiringAnime();
+      setAnime(results);
+      animeCache.airingAnime = results;
     } catch (err) {
       console.error(err);
     }

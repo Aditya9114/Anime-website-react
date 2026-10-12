@@ -10,15 +10,15 @@ export function Studio({ anime }) {
         <div className="studio-div" id="studio">
           <h1>Studios</h1>
           <div className="studio">
-            {anime?.studios?.map((studio) => (
-              <p key={studio.mal_id}>{studio.name}</p>
+            {anime?.studios?.edges?.filter((edge) => edge.isMain).map(({ node: studio }) => (
+              <p key={studio.id}>{studio.name}</p>
             ))}
           </div>
 
           <div className="producers">
             <h1>Producers</h1>
-            {anime?.producers?.map((producer) => (
-              <p key={producer.mal_id}>{producer.name}</p>
+            {anime?.studios?.edges?.filter((edge) => !edge.isMain).map(({ node: producer }) => (
+              <p key={producer.id}>{producer.name}</p>
             ))}
           </div>
         </div>

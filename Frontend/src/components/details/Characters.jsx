@@ -1,58 +1,34 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { CharacterCard } from "./CharacterCard";
 import { useNavigate } from "react-router-dom";
 import "./characters.css";
 
-export function Characters({ id }) {
-  const [characters, setCharacters] = useState([]);
+const firstName = (actors = []) => actors[0]?.name?.full || "Unknown";
+
+export function Characters({ anime }) {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!id) return;
-    async function getchar(){
-      await new Promise(r => setTimeout(r, 800));
-
-      axios
-      .get(`https://api.jikan.moe/v4/anime/${id}/characters`)
-      .then((res) => setCharacters(res.data.data))
-      .catch(console.error);
-    }
-    getchar();
-  }, [id]);
-
-  useEffect(() => {
-    console.log(characters);
-  }, [characters]);
+  const characters = anime?.characters?.edges || [];
 
   return (
     <>
-      <div className="heading">
-        <h1>Characters</h1>
-      </div>
-
+      <div className="heading"><h1>Characters</h1></div>
       <div className="charGird" id="characters">
-        {characters.slice(0, 5).map((chars) => (
+        {characters.slice(0, 5).map((edge) => (
           <CharacterCard
-            key={chars.character.mal_id}
-            src={chars?.character?.images?.jpg?.image_url}
-            name={chars?.character?.name}
-            role={chars?.role}
-            jpVa={chars?.voice_actors?.[0]?.person?.name || "Unknown"}
-            enVa={chars?.voice_actors?.[1]?.person?.name || "Unknown"}
-            spVa={chars?.voice_actors?.[5]?.person?.name || "Unknown"}
-            frVa={chars?.voice_actors?.[2]?.person?.name || "Unknown"}
-            itVa={chars?.voice_actors?.[4]?.person?.name || "Unknown"}
-            geVa={chars?.voice_actors?.[6]?.person?.name || "Unknown"}
-            manVa={chars?.voice_actors?.[7]?.person?.name || "Unknown"}
+            key={edge.node.id}
+            src={edge.node.image?.large}
+            name={edge.node.name?.full || "Unknown"}
+            role={edge.role || "BACKGROUND"}
+            jpVa={firstName(edge.voiceActorsJp)}
+            enVa={firstName(edge.voiceActorsEn)}
+            spVa={firstName(edge.voiceActorsEs)}
+            frVa={firstName(edge.voiceActorsFr)}
+            itVa={firstName(edge.voiceActorsIt)}
+            geVa={firstName(edge.voiceActorsDe)}
+            manVa={firstName(edge.voiceActorsZh)}
           />
         ))}
       </div>
-      <div id="btn1">
-        <button onClick={() => navigate(`/All-Characters/${id}`)}>
-          Load More Characters
-        </button>
-      </div>
+      {anime?.idMal && <div id="btn1"><button onClick={() => navigate(`/All-Characters/${anime.idMal}`)}>Load More Characters</button></div>}
     </>
   );
 }

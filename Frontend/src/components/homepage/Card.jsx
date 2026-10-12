@@ -48,14 +48,14 @@ export function Card({
             );
 
             // remove from UI instantly
-            setAnime((prev) => prev.filter((anime) => anime.mal_id !== id));
+            setAnime((prev) => prev.filter((anime) => anime.idMal !== id));
           }}
         >
           &times;
         </button>
       )}
 
-      <button id="card-btn" onClick={() => navigate(`/details/${id}`)}>
+      <button id="card-btn" disabled={!id} onClick={() => id && navigate(`/details/${id}`)}>
         View Details
       </button>
     </div>

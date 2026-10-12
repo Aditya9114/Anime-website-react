@@ -6,9 +6,11 @@
 }
 
 .mediaContainer iframe {
-  width: 90%;
-  height: 80vh;
+  width: min(90%, 1100px);
+  aspect-ratio: 16 / 9;
+  height: auto;
   border-radius: 10px;
+  border: 0;
 }
 @media (max-width: 768px) {
   /* styles for phones & small tablets */
@@ -21,7 +23,6 @@
 
   .mediaContainer iframe {
     width: 90%;
-    height: 40vh;
-    border-radius: 10px;
+    height: auto;
   }
 }

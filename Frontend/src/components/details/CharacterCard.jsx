@@ -17,7 +17,7 @@ export function CharacterCard({
 
   return (
     <div className="charBody">
-      <img src={src} alt={name} className="charImage" />
+      <img src={src || "https://placehold.co/120x160?text=Character"} alt={name} className="charImage" />
       
       {/* Primary Info Group (Name & Role) */}
       <div className="primary-info">

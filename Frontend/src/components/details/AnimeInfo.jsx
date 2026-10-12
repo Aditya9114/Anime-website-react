@@ -11,8 +11,8 @@ export function AnimeInfo({ anime, id }) {
       {/* Left Side: Poster Image */}
       <div className="poster-wrapper">
         <img
-          src={anime.images?.jpg?.large_image_url}
-          alt={anime.title}
+          src={anime.coverImage?.extraLarge || anime.coverImage?.large}
+          alt={anime.title?.english || anime.title?.romaji}
           className="poster-image"
         />
       </div>
@@ -20,7 +20,7 @@ export function AnimeInfo({ anime, id }) {
       {/* Right Side: Content */}
       <div className="anime-content">
         {/* Title Section */}
-        <h1 className="anime-title">{anime.title_english || anime.title}</h1>
+        <h1 className="anime-title">{anime.title?.english || anime.title?.romaji}</h1>
 
         {/* Rating Section */}
         {/* Rating Section */}
@@ -31,7 +31,7 @@ export function AnimeInfo({ anime, id }) {
               alt="star"
               className="star-icon"
             />
-            <span className="score-val">{anime.score}</span>
+            <span className="score-val">{anime.averageScore == null ? "N/A" : (anime.averageScore / 10).toFixed(1)}</span>
             <span className="score-max">/ 10</span>
           </div>
 
@@ -86,22 +86,25 @@ export function AnimeInfo({ anime, id }) {
         </div>
 
         {/* Synopsis */}
-        <p className="synopsis">{anime.synopsis}</p>
+        <p className="synopsis">{anime.description?.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ")}</p>
         <div className="more-info">
-          <p>Episodes Count : {anime.episodes}</p>
-          <p>Rating : {anime.rating}</p>
-          <p>Source : {anime.source}</p>
+          {anime.rankings?.filter((rank) => rank.type === "RATED").slice(0, 1).map((rank) => <p key={`${rank.context}-${rank.rank}`}>AniList ranking : #{rank.rank} ({rank.context})</p>)}
+          <p>Episodes Count : {anime.episodes ?? "Unknown"}</p>
+          <p>Format : {anime.format || "Unknown"}</p>
+          <p>Status : {anime.status || "Unknown"}</p>
+          <p>Season : {anime.season ? `${anime.season} ${anime.seasonYear || ""}` : "Unknown"}</p>
+          <p>Release : {[anime.startDate, anime.endDate].map((date) => [date?.year, date?.month, date?.day].filter(Boolean).join("-") || "?").join(" – ")}</p>
         </div>
 
         {/* Tags / Genres */}
         <div className="tags-container">
           {anime.genres?.map((genre) => (
-            <span key={genre.name} className="tag-pill">
-              {genre.name}
+            <span key={genre} className="tag-pill">
+              {genre}
             </span>
           ))}
           {anime.themes?.map((theme) => (
-            <span className="tag-pill">
+            <span key={theme.name} className="tag-pill">
               {theme.name}
             </span>
           ))}

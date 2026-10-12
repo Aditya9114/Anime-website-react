@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { CardGrid } from "../homepage/CardGrid";
 import { watchListCache } from "../homepage/cache";
 import axios from "axios";
+import { getAnimeByMalId } from "../../services/anilist.js";
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
@@ -16,14 +17,12 @@ async function fetchAnime(ids, setAnime) {
     const results = await Promise.all(
       batch.map(async (id) => {
         try {
-          const res = await axios.get(`https://api.jikan.moe/v4/anime/${id}`);
-          return res.data.data;
+          return await getAnimeByMalId(id);
         } catch (err) {
           if (err.response?.status === 429) {
             await delay(1500);
             try {
-              const retry = await axios.get(`https://api.jikan.moe/v4/anime/${id}`);
-              return retry.data.data;
+              return await getAnimeByMalId(id);
             } catch {
               return null;
             }
